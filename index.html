@@ -1,1 +1,19 @@
-Hello Github Pages
+<!DOCTYPE html>
+<html>
+	<head><meta charset = "Shift_JIS">
+		<title>Kiefer</title>
+		<script>
+			function showSlider(){
+				var sliderValue = document.getElementById("slider").value;
+				alert("スライダーの値：" + sliderValue);
+			}
+		</script>
+	</head>
+	<body>
+		<form>
+			<input type = "range" id = "slider" value = "50" min = "0" max = "100">
+			<br>
+			<input type = "button" value = "表示" onclick="showSlider()">
+		</form>
+	</body>
+</html>
