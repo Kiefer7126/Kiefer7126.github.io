@@ -2,6 +2,19 @@
 <html>
 	<head><meta charset = "Shift-JIS">
 		<title>世界時計</title>
+		
+		<script>
+
+		function clock(){
+			var now = new Date();
+			var hour = now.getHours();
+			var min = now.getMinutes();
+			var sec = now.getSeconds();
+			var timeelement = document.getElementById("time");
+			timeElement.innerHTML = hour + ":" + min + ":" + sec;
+		}
+
+		</script>
 		<style>
 		
 		#clock{
@@ -18,10 +31,11 @@
 
 		</style>
 	</head>
-	<body>
+	<body onLoad = "clock()">
 		<div id = "clock">
 			<img src = "kiefer.gif">
 			<div id = "time">--:--:--</div>
 		</div>
+		<div id = "link"><a href="index.html">Back</a><div>
 	</body>
 </html>
