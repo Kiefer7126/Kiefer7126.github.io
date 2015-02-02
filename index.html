@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html>//HTML5である宣言
 <html>
 	<head><meta charset = "Shift_JIS">
 		<title>Kiefer</title>
-		<script>
+		<script>//デフォルトがJavaScriptなのでtype属性を省略できる
 			function showSlider(){
 				var sliderValue = document.getElementById("slider").value;
 				alert("スライダーの値：" + sliderValue);
@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<form>
-			<input type = "range" id = "slider" value = "50" min = "0" max = "100">
+			<input type = "range" id = "slider" value = "50" min = "0" max = "100">　//type = range はスライダーで値を入力
 			<br>
 			<input type = "button" value = "表示" onclick="showSlider()">
 		</form>
