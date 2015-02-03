@@ -10,8 +10,23 @@
 			var hour = now.getHours();
 			var min = now.getMinutes();
 			var sec = now.getSeconds();
-			var timeelement = document.getElementById("time");
+
+			if(hour < 10) hour = "0" + hour;
+			if(min < 10) min = "0" + min;
+			if(sec < 10) sec = "0" + sec;
+
+			var timeElement = document.getElementById("time");
 			timeElement.innerHTML = hour + ":" + min + ":" + sec;
+
+			var year = now.getFullYear();
+			var month = now.getMonth() + 1;
+			var day = now.getDate();
+			var weekArray = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+			var week = weekArray[now.getDay()];
+			var dateElement = document.getElementById("date");
+			dateElement.innerHTML = year + "/" + month + "/" + day + " " + week; 
+
+			setTimeout("clock()",1000);
 		}
 
 		</script>
@@ -28,12 +43,16 @@
 		#time{
 			font-size: 42pt;
 		}
+		#date{
+			font-size: 20pt;
+		}
 
 		</style>
 	</head>
 	<body onLoad = "clock()">
 		<div id = "clock">
 			<img src = "kiefer.gif">
+			<div id = "date">----/--/-- ---</div>
 			<div id = "time">--:--:--</div>
 		</div>
 		<div id = "link"><a href="index.html">Back</a><div>
