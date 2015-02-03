@@ -1,0 +1,23 @@
+<!-- HTML5である宣言 -->
+<!DOCTYPE html>
+<html>
+	<head><meta charset = "Shift_JIS">
+		<title>Slider</title>
+		<script>
+			function showSlider(){
+				var sliderValue = document.getElementById("slider").value;
+				alert("スライダーの値：" + sliderValue);
+			}
+		</script>
+	</head>
+	<body>
+		<form>
+			<!-- type = range はスライダーで値を入力 -->
+			<input type = "range" id = "slider" value = "50" min = "0" max = "100">　
+			<br>
+			<input type = "button" value = "表示" onclick="showSlider()">
+			<br> 
+		</form>
+		<div id = "link"><a href="index.html">Back</a><div>
+	</body>
+</html>

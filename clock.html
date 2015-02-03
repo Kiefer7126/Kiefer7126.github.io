@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head><meta charset = "Shift-JIS">
-		<title>世界時計</title>
+		<title>World Clock</title>
 		
 		<script>
 
@@ -21,7 +21,7 @@
 			var year = now.getFullYear();
 			var month = now.getMonth() + 1;
 			var day = now.getDate();
-			var weekArray = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+			var weekArray = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];// 配列は{}ではなく[]
 			var week = weekArray[now.getDay()];
 			var dateElement = document.getElementById("date");
 			dateElement.innerHTML = year + "/" + month + "/" + day + " " + week; 
@@ -46,12 +46,15 @@
 		#date{
 			font-size: 20pt;
 		}
+		#image{
+			padding-left: 30px; 
+		}
 
 		</style>
 	</head>
 	<body onLoad = "clock()">
 		<div id = "clock">
-			<img src = "kiefer.gif">
+			<div id = "image"><img src = "kiefer.gif"></div>
 			<div id = "date">----/--/-- ---</div>
 			<div id = "time">--:--:--</div>
 		</div>

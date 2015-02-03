@@ -3,21 +3,15 @@
 <html>
 	<head><meta charset = "Shift_JIS">
 		<title>Kiefer</title>
-		<script>//デフォルトがJavaScriptなのでtype属性を省略できる
-			function showSlider(){
-				var sliderValue = document.getElementById("slider").value;
-				alert("スライダーの値：" + sliderValue);
-			}
-		</script>
 	</head>
 	<body>
-		<form>
-			<!-- type = range はスライダーで値を入力 -->
-			<input type = "range" id = "slider" value = "50" min = "0" max = "100">　
-			<br>
-			<input type = "button" value = "表示" onclick="showSlider()">
-			<div id = "link"><a href="clock.html">世界時計</a><div>
-			<br> 
-		</form>
+		<article class="markdown-body">
+			<h1 id="_1">技術習得ページ</h1>
+			<h3 id="_2">成果物</h3>
+			<ul>
+				<li><a href="slider.html">スライダー</a></li>
+				<li><a href="clock.html">世界時計</a></li>
+			</ul>
+		</article>
 	</body>
 </html>
