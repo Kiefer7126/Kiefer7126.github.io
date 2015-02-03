@@ -21,7 +21,7 @@
 			var year = now.getFullYear();
 			var month = now.getMonth() + 1;
 			var day = now.getDate();
-			var weekArray = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+			var weekArray = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 			var week = weekArray[now.getDay()];
 			var dateElement = document.getElementById("date");
 			dateElement.innerHTML = year + "/" + month + "/" + day + " " + week; 
