@@ -4,6 +4,12 @@
 	<head><meta charset = "Shift_JIS">
 		<title>Kiefer's Portfolio</title>
 		<script src = "lastupdate.js"></script>
+		<style>	
+			#updateAgoTxt{
+				color: #999999;
+				padding: 10px;
+			}
+		</style>
 	</head>
 	<body onLoad = "lastUpdate()">
 		<article class="markdown-body">
@@ -17,8 +23,13 @@
 					</ul>
 			</section>
 			<section>
-				<footer>Author: <a href="https://twitter.com/kiefer7126">@kiefer7126</a></footer>	
-				<footer id = "lastUpdateTxt">Last updated: -- --, ---- --:--:--</footer>
+				<footer>
+					<p>Author: <a href="https://twitter.com/kiefer7126">@kiefer7126</a></p>	
+					<p>
+						<div id = "lastUpdateTxt">Last updated: -- --, ---- --:--:--</div>
+						<div id = "updateAgoTxt"> ---- ago</div>
+					</p>
+				</footer>
 			</section>
 		</article>
 	</body>
