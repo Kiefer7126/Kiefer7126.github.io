@@ -8,6 +8,10 @@
 				var modiSecond = modiDate.getSeconds();
 				var monthArray = ["Jan. ", "Feb. ", "Mar. ", "Apr. ", "May ", "June ", "July ", "Aug. ", "Sep. ", "Oct. ", "Nov. ", "Dec. ",];
 
+				if(modiHour < 10) modiHour = "0" + modiHour;
+				if(modiMinute < 10) modiMinute = "0" + modiMinute;
+				if(modiSecond < 10) modiSecond = "0" + modiSecond;
+
 				var lastUpdateElement = document.getElementById("lastUpdateTxt");
 				lastUpdateElement.innerHTML = "Last updated: " + monthArray[modiMonth] + modiDay + ", " + modiYear + " " + modiHour + ":" + modiMinute + ":" + modiSecond;
 
