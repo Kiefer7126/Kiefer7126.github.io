@@ -6,13 +6,37 @@
     <script>
 
       var imageArray = ["image/1.jpg", "image/2.jpg", "image/3.jpg", "image/4.jpg", "image/5.jpg"]; 
+      var currentImage = 0;
+      var timerId;
+
+      function changeImage(){
+        showImage(currentImage);
+        currentImage++;
+        if(currentImage == imageArray.length) currentImage = 0;
+      }
+
+      function startSlideShow(){
+        changeImage();
+        timerId = setInterval("changeImage()",3000);
+      }
+
+      function pauseSlideShow(){
+        // 生成されたタイマーIDを渡すことで停止する
+        clearInterval(timerId);
+      }
+
+      function stopSlideShow(){
+        clearInterval(timerId);
+        currentImage = 0;
+        showImage(currentImage);
+      }
 
       function showImage(imageNo){
         document.getElementById("main").src = imageArray[imageNo];
 
         // クラス名からすべてのDOM要素を取り出す(getElementsになっていることに注意)
         var thumbImages = document.getElementsByClassName("thumb");// 配列
-        
+
         for(var i=0; i<thumbImages.length; i++){
         //DOM要素からクラスを取り除く
           thumbImages[i].classList.remove("select");
@@ -33,6 +57,13 @@
         width: 620px;
         padding: 10px;
       }
+      #buttons{
+        background-color: #CCCCCC;
+        border: solid #999999 1px;
+        width: 620px;
+        padding: 10px;
+      }
+
       .thumb {
         width: 90px;
         height: 90px;
@@ -53,6 +84,12 @@
       <img src="image/3thumb.jpg" class="thumb" onClick="showImage(2)">
       <img src="image/4thumb.jpg" class="thumb" onClick="showImage(3)">
       <img src="image/5thumb.jpg" class="thumb" onClick="showImage(4)">  
+    </div>
+    <div id="buttons">
+      <!-- buttonタグではさめば画像をbuttonにできる -->
+      <button type="button" id="buttonStart" onClick="startSlideShow()">PLAY</button>
+      <button type="button" id="buttonPause" onClick="pauseSlideShow()">PAUSE</button>
+      <button type="button" id="buttonStop" onClick="stopSlideShow()">STOP</button>    
     </div>
     <div id = "link"><a href="index.html">Back</a><div>
   </body>
