@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "Shift-JIS">
+    <title>Canvas</title>
+    <script>
+
+      function drawRect(){
+        var canvas = document.getElementById("main");
+        // 2Dグラフィック用の描画コンテキストを取得
+        var context = canvas.getContext("2d");
+
+        context.strokeStyle = "red";
+        context.strokeRect(50, 50, 100, 180);
+
+        context.fillStyle = "blue";
+        context.fillRect(200, 50, 100, 180);
+      }
+
+      function drawLine(){
+        var canvas = document.getElementById("main");
+        var context = canvas.getContext("2d");
+
+        context.strokeStyle = "red";
+        context.beginPath();
+        context.moveTo(350, 50);
+        context.lineTo(600, 150);
+        context.lineTo(400, 200);
+        context.closePath();
+        context.stroke();
+
+      }
+
+      function drawCircle(){
+        var canvas = document.getElementById("main");
+        var context = canvas.getContext("2d");
+        context.strokeStyle = "red";
+        context.beginPath();
+        context.arc(200, 350, 80, 0, 2*Math.PI, false);
+        context.stroke();
+        context.fillStyle = "blue";
+        context.beginPath();
+        context.arc(450, 350, 80, 0, 2*Math.PI, false);
+        context.fill();
+      }
+
+    </script>
+    <style>
+
+      canvas {
+        border: solid #999999 1px;
+      }
+
+      #buttons {
+        background-color: #CCCCCC;
+        border: solid #999999 1px;
+        width: 620px;
+        padding: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <canvas id="main" width="640" height="480"></canvas>
+    <div id="buttons">
+      <input type="button" value="DrawRect" onClick="drawRect()">
+      <input type="button" value="DrawLine" onClick="drawLine()">
+      <input type="button" value="DrawCircle" onClick="drawCircle()">
+    </div>
+  </body>
+</html>
