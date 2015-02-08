@@ -4,19 +4,23 @@
     <meta charset = "Shift-JIS">
     <title>SlideShow</title>
     <script>
+
       var imageArray = ["image/1.jpg", "image/2.jpg", "image/3.jpg", "image/4.jpg", "image/5.jpg"]; 
 
       function showImage(imageNo){
         document.getElementById("main").src = imageArray[imageNo];
 
-        var thumbImages = document.getElementByClassName("thumb");
-
+        // クラス名からすべてのDOM要素を取り出す(getElementsになっていることに注意)
+        var thumbImages = document.getElementsByClassName("thumb");// 配列
+        
         for(var i=0; i<thumbImages.length; i++){
+        //DOM要素からクラスを取り除く
           thumbImages[i].classList.remove("select");
         }
-
+        //DOM要素にクラスを追加する
         thumbImages[imageNo].classList.add("select");
       }
+
     </script>
     <style>
       #main {
@@ -44,11 +48,11 @@
   <body>
     <img src="image/1.jpg" id="main">
     <div id="thumbArea">
-      <img src="image/1thumb.jpg" class="thumb select" onclick="showImage(0)">
-      <img src="image/2thumb.jpg" class="thumb" onclick="showImage(1)">
-      <img src="image/3thumb.jpg" class="thumb" onclick="showImage(2)">
-      <img src="image/4thumb.jpg" class="thumb" onclick="showImage(3)">
-      <img src="image/5thumb.jpg" class="thumb" onclick="showImage(4)">  
+      <img src="image/1thumb.jpg" class="thumb select" onClick="showImage(0)">
+      <img src="image/2thumb.jpg" class="thumb" onClick="showImage(1)">
+      <img src="image/3thumb.jpg" class="thumb" onClick="showImage(2)">
+      <img src="image/4thumb.jpg" class="thumb" onClick="showImage(3)">
+      <img src="image/5thumb.jpg" class="thumb" onClick="showImage(4)">  
     </div>
     <div id = "link"><a href="index.html">Back</a><div>
   </body>
