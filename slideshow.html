@@ -11,7 +11,7 @@
 
       function changeImage(){
         showImage(currentImage);
-        currentImage++;
+        //currentImage++;
         if(currentImage == imageArray.length) currentImage = 0;
       }
 
@@ -55,6 +55,10 @@
       }
 
       function showImage(imageNo){
+        currentImage = imageNo;
+        currentImage++;
+        if(currentImage == imageArray.length) currentImage = 0;
+
         document.getElementById("main").src = imageArray[imageNo];
 
         // クラス名からすべてのDOM要素を取り出す(getElementsになっていることに注意)
