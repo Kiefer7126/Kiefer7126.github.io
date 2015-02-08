@@ -16,7 +16,7 @@
       }
 
       function startSlideShow(){
-        changeImage();
+        if(currentImage == 0) changeImage();
         timerId = setInterval("changeImage()",4875);
         var audio = document.getElementById("audio");
         audio.play();
@@ -29,7 +29,6 @@
       function pauseSlideShow(){
         // 生成されたタイマーIDを渡すことで停止する
         clearInterval(timerId);
-
         var audio = document.getElementById("audio");
         //一時停止
         //audio.pause();
