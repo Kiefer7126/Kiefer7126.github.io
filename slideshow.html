@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset = "Shift-JIS">
+    <title>SlideShow</title>
+    <style>
+      #main {
+        border:solid #999999 1px;
+        width: 640px;
+        height: 480px;
+      }
+      #thumbArea {
+        border: solid #999999 1px;
+        width: 620;
+        padding: 10px;
+      }
+      .thumb {
+        width: 90px;
+        height: 90px;
+        border: solid #CCCCCC 2px;
+        opacity: 0.6;/*透過*/
+      }
+      .select {
+        border: solid #333366 2px;
+        opacity: 1.0;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="image/1.jpg" id="main">
+    <div id="thumbArea">
+      <img src="image/1thumb.jpg" class="thumb select">
+      <img src="image/2thumb.jgp" class="thumb">
+      <img src="image/3thumb.jgp" class="thumb">
+      <img src="image/4thumb.jgp" class="thumb">
+      <img src="image/5thumb.jgp" class="thumb">  
+    </div>
+  </body>
+</html>
