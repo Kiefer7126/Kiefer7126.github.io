@@ -17,18 +17,42 @@
 
       function startSlideShow(){
         changeImage();
-        timerId = setInterval("changeImage()",3000);
+        timerId = setInterval("changeImage()",4875);
+        var audio = document.getElementById("audio");
+        audio.play();
+        audio.volume = document.getElementById("volume").value;
+
+        //STARTボタンの無効化
+        document.getElementById("buttonStart").disabled = true;
       }
 
       function pauseSlideShow(){
         // 生成されたタイマーIDを渡すことで停止する
         clearInterval(timerId);
+
+        var audio = document.getElementById("audio");
+        //一時停止
+        //audio.pause();
+
+        // 停止するメソッドはないので再度読み込む
+        audio.load();
+
+        //STARTボタンの有効化
+        document.getElementById("buttonStart").disabled = false;
       }
 
       function stopSlideShow(){
         clearInterval(timerId);
         currentImage = 0;
         showImage(currentImage);
+
+        var audio = document.getElementById("audio");
+        
+        // 停止するメソッドはないので再度読み込む
+        audio.load();
+
+        //STARTボタンの有効化
+        document.getElementById("buttonStart").disabled = false;
       }
 
       function showImage(imageNo){
@@ -43,6 +67,14 @@
         }
         //DOM要素にクラスを追加する
         thumbImages[imageNo].classList.add("select");
+      }
+
+      function changeVolume(){
+        var audio = document.getElementById("audio");
+        audio.volume = document.getElementById("volume").value;
+        
+        var volumeTxt = document.getElementById("volumeTxt");
+        volumeTxt.innerHTML = "Volume:[" + Math.round(document.getElementById("volume").value*100) + "]";
       }
 
     </script>
@@ -86,11 +118,18 @@
       <img src="image/5thumb.jpg" class="thumb" onClick="showImage(4)">  
     </div>
     <div id="buttons">
-      <!-- buttonタグではさめば画像をbuttonにできる -->
+      <p>Important: Please note that it makes sounds.</p>  
+      <!-- buttonタグではさめば画像をbuttonにできる(今は文字だけど) -->
       <button type="button" id="buttonStart" onClick="startSlideShow()">PLAY</button>
       <button type="button" id="buttonPause" onClick="pauseSlideShow()">PAUSE</button>
-      <button type="button" id="buttonStop" onClick="stopSlideShow()">STOP</button>    
+      <button type="button" id="buttonStop" onClick="stopSlideShow()">STOP</button>
+      <div id="volumeTxt">Volume:[100]</div><input type="range" id="volume" min="0" max="1" step="0.01" value="1.0" onChange="changeVolume()">
+      
     </div>
+    <audio id="audio" loop>
+      <source src="1.m4a"></source>
+      <!-- 本来ならここに複数のファイル形式を読み込む -->
+    </audio>
     <div id = "link"><a href="index.html">Back</a><div>
   </body>
 </html>
