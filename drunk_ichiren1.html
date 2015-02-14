@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Drunk Ichiren</title>
+    <script>    
+      var ichirenArray = ["わかる　アンディティティある",
+                          "覚めたわ（CV:やすな）", 
+                          "俺は今最高に寄ってる", 
+                          "いやマジでスルーされてるから辛い", 
+                          "そのままの君で居てくれ",
+                          "２０年もののワイン開けちゃったｗ",
+                          "俺がくろみるにやさしいのは酔ってる時だけだからな",
+                          "米谷～～～～～～～～～～～～～～～",
+                          "にゆさんおめでと！！！！！！！！！！！！",
+                          "にゆさん絶対淫夢厨でしょ",
+                          "わかる　＞りさ",
+                          "もこちょさんこんにちは　変態仮面です",
+                          "変態子だった",
+                          "わかる　掴みたさある　]＞ラル",
+                          "ゎヵる　＞だとおもうじゃんｍ",
+                          "ゎｘｔあｘしもｘｋいｘらぃ",
+                          "あの花やで！　　＞れい",
+                          "でた　もちょこ",
+                          "今までテストおつかれさんぼん　＞にゆ",
+                          "@nitomon_p ３００円でかいし、なりそう　俺の嫁に鳴ってくれ",
+                          "ガム食べるとお腹痛くなるって今日はバレンタインじゃん　チョコたべたら中和",
+                          "と思うじゃん？　＞だと思うじゃん？",
+                          "なんて言ったか忘れやったあたしアルツハイマーかも　＞だとおも",
+                          "浮気はダメダよたろうくん",
+                          "うちゅう人田中太郎",
+                          "トイレ行ってた　三行",
+                          "わたしも中学生",
+                          "nitomon_pみたいな飯つくってお世話してくれる彼女ほしい",
+                          "前方後円墳いいよね",
+                          "大仙古墳すきだよ",
+                          "ワカタケルのミコトだよ ＜しゃるろって",
+                          "車出しちゃおうかなｗ", 
+                          "あ＾～～～～～　幸せ",
+                          "夜のヤッターマン面白いよね　見たこと無いんだけどさ",
+                          "僕らはみんな河合荘とかど０う？　＞いざや",
+                          "いちれんさんからも遠方",
+                          "血液型は？　いちれんさん",
+                          "さそり座だよ☆★",
+                          "呼び捨てはうざいよね　蟹くんとか",
+                          "呼び捨てしてくる後輩は消してしまえ   こん！",
+                          "大学生になってもロクな事ないと思うな～　＞よねぴ",
+                          "よねぴって誰やねんｗ",
+                          "バレンタインデー辛いよね　虫歯的に",
+                          "みずぴ＾ーはサイリウムだよ",
+                          "わたし　ゆかだから床ドンかもｗ",
+                          "肩ポンってなにｗｗ",
+                          "えせれんだ",
+                          "つーかこれからっしょｗ",
+                          "チア部なかったし　工業高だからよくわかんないけどいい匂いはしそう　＞よねぴ",
+                          "聖徳太子になりきったのに誰も話しかけてくれなかった、中学校の時から温めてきたネタだったのに",
+                          "ビクトリアいくぞ　MAXはうなる",//50
+                          "明日の朝絶対航海するやつだ",
+                          "しりとりしたさある",
+                          "泣けると言えばあの花劇場版めっちゃ泣けるよね",
+                          "面白いこと言いますね"
+                          ];
+
+      count = 0;
+
+      function strFade(str){
+        c = str.charAt(count++);
+        document.all["strID"].style.color = "#"+c+c+c+c+c+c;
+        document.all["strID2"].style.color = "#"+c+c+c+c+c+c;
+        if (count < str.length) setTimeout("strFade('" + str + "')",200);
+            
+      }
+
+      function setText(){
+        
+        document.all["strID"].style.color = "#ffffff";
+        document.all["strID2"].style.color = "#ffffff";
+
+        rnd = Math.floor( Math.random() * 54);
+        var strID = document.getElementById("strID");
+        strID.innerHTML = ichirenArray[rnd];
+        var strID2 = document.getElementById("strID2");
+        strID2.innerHTML = "";
+
+        switch(rnd){
+          case 50:
+            strID2.innerHTML = "ｷｭﾙﾙﾙﾙﾙﾙ（タイベル）";
+            break;
+
+          case 51:
+            strID2.innerHTML = "海賊王に俺はなるｗ";
+            break;
+  
+          case 52:
+            strID2.innerHTML = "おでん";
+            break;
+
+          case 53:
+            strID2.innerHTML = "めんま出るたびに泣いてる";
+            break;
+
+          case 54:
+            strID2.innerHTML = "未完成のみかん！";
+            break;
+        }
+
+        strFade('fedcba9876543210');
+        setTimeout("location.reload()",1000*4);
+        // var timerId = setInterval("setText()",3500);
+      }
+
+    </script>
+    <style>
+      #strID {
+        margin-top: 200px;
+        text-align: center;
+        font-size: 40px;
+      }
+      #strID2 {
+        margin-top: 50px;
+        text-align: center;
+        font-size: 30px;
+      }
+
+      #ichiren {
+        margin-top: 100px;
+        text-align: center;
+      }
+
+    </style>
+  </head>
+  <body onLoad="setText()" bgcolor="white">
+  <div id="strID" style="color:white">わかる　アンディティティある</div>
+  <div id="strID2" style="color:white"></div>
+  <div id="ichiren">
+    <img src="image/ichiren.png">
+    <p>2015/02/14</p>
+    <p>20年もののワインを飲み干し、酔ったいちれん。</p>
+    <p>その時の貴重なツイートや10代チャットでのうざ絡みをまとめた。</p>
+  </div>
+  </body>
+</html>
