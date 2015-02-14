@@ -61,21 +61,27 @@
                           "面白いこと言いますね"
                           ];
 
-      count = 0;
+      var count = 0;
 
-      function strFade(str){
+      function FadeIn(str){
         c = str.charAt(count++);
+
         document.all["strID"].style.color = "#"+c+c+c+c+c+c;
         document.all["strID2"].style.color = "#"+c+c+c+c+c+c;
-        if (count < str.length) setTimeout("strFade('" + str + "')",200);
-            
+
+        if (count < str.length){
+          setTimeout("FadeIn('" + str + "')",250);
+        }
+        else{
+          setText();
+        }  
       }
 
+      function showText(){
+        var timerId = setTimeout("setText()",3500);
+      }
       function setText(){
         
-        document.all["strID"].style.color = "#ffffff";
-        document.all["strID2"].style.color = "#ffffff";
-
         rnd = Math.floor( Math.random() * 54);
         var strID = document.getElementById("strID");
         strID.innerHTML = ichirenArray[rnd];
@@ -103,10 +109,11 @@
             strID2.innerHTML = "未完成のみかん！";
             break;
         }
-
-        strFade('fedcba9876543210');
-        setTimeout("location.reload()",1000*4);
-        // var timerId = setInterval("setText()",3500);
+        //setTimeout("location.reload()",1000*4);
+        count = 0;
+        document.all["strID"].style.color = "#ffffff";
+        document.all["strID2"].style.color = "#ffffff";
+        FadeIn('fedcba9876543210');       
       }
 
     </script>
@@ -133,7 +140,7 @@
   <div id="strID" style="color:white">わかる　アンディティティある</div>
   <div id="strID2" style="color:white"></div>
   <div id="ichiren">
-    <img src="image/ichiren.png">
+    <a href="https://twitter.com/ichiren1"><img src="image/ichiren.png"></a>
     <p>2015/02/14</p>
     <p>20年もののワインを飲み干し、酔ったいちれん。</p>
     <p>その時の貴重なツイートや10代チャットでのうざ絡みをまとめた。</p>
