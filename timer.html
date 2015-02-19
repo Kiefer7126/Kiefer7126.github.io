@@ -6,9 +6,16 @@
     <script>
       var myCnt = 0;
       var myTim = 0;
+      var msec = 0;
       var second　= 0;
       var minute = 0;
       var countDownFlag = false;
+      var countMinute = 0;
+      var count = 0;
+      var countSecView = "00";
+      var countMinView = "00";
+      var countMsecView = "00";
+      var timeArray = [60000,6000,1000,100,10,1,-60000,-6000,-1000,-10,-1];
 
       function test(){
          //PAUSEボタンの無効化
@@ -17,21 +24,68 @@
         document.getElementById("buttonReset").disabled = true;
       }
 
-      function timerStart(){
-        var mySelect = document.myForm.myMenu.selectedIndex;
-        myCnt = eval ( document.myForm.myMenu.options[mySelect].value );
+      function timeUpDown(num){
+
         if(myCnt > 0){
           countDownFlag = true;
         }else{
           countDownFlag = false;
         }
-        myTim = setInterval ( "myTimer()", 1000 );
+
+        myCnt = myCnt + timeArray[num];
+      
+          if(myCnt < 0){
+            myCnt = 0;
+          }
+
+          countMinView = Math.floor(myCnt / 6000);
+          countSecView = (Math.floor(myCnt/100))%60;
+          countMsecView = myCnt%100;
+
+        if(countMsecView < 10) countMsecView = "0" + countMsecView;
+        if(countSecView < 10) countSecView = "0" + countSecView;
+        if(countMinView < 10) countMinView = "0" + countMinView;
+
+         document.getElementById( "timerView" ).innerHTML = countMinView + ":" + countSecView + ":" + countMsecView;
+
+      }
+
+      function preset(){
+        var mySelect = document.myForm.myMenu.selectedIndex;
+        myCnt = eval ( document.myForm.myMenu.options[mySelect].value );
+
+        msec = myCnt % 100;
+        second = Math.floor(myCnt / 100) % 60;
+        minute = Math.floor(myCnt / 6000);
+        if(msec < 10) msec = "0" + msec;
+        if(second < 10) second = "0" + second;
+        if(minute < 10) minute = "0" + minute;
+        document.getElementById( "timerView" ).innerHTML = minute +":"+ second +":"+ msec;
+      }
+
+      function timerStart(){
+         
+        if(myCnt > 0){
+          countDownFlag = true;
+        }else{
+          countDownFlag = false;
+        }
+        myTim = setInterval ( "myTimer()", 10 );
 
         //STARTボタンの無効化
         document.getElementById("buttonStart").disabled = true;
+        
+        //SETボタンの無効化
+        document.getElementById("buttonSet").disabled = true;
         //PAUSEボタンの有効化
         document.getElementById("buttonPause").disabled = false;
-      }
+
+        //UpDownボタンの無効化
+        var e = document.getElementsByClassName('buttonUpDown');
+        for(var i=0; i < e.length; i++){
+          e[i].disabled = true;
+          } 
+        }
 
       function timerPause(button){
 
@@ -42,7 +96,7 @@
           //RESETボタンの有効化
         document.getElementById("buttonReset").disabled = false;
         }else{
-          myTim = setInterval ( "myTimer()", 1000 );
+          myTim = setInterval ( "myTimer()", 10 );
           button.value = "  PAUSE  ";
           //RESETボタンの無効化
         document.getElementById("buttonReset").disabled = true;
@@ -55,12 +109,23 @@
         document.getElementById("buttonPause").value = "  PAUSE  ";
         //STARTボタンの有効化
         document.getElementById("buttonStart").disabled = false;
+        //SETボタンの有効化
+        document.getElementById("buttonSet").disabled = false;
         //PAUSEボタンの無効化
         document.getElementById("buttonPause").disabled = true;
         //RESETボタンの無効化
         document.getElementById("buttonReset").disabled = true;
+        //UpDownボタンの有効化
+        document.getElementsByClassName("buttonUpDown").disabled = false;
 
-        document.getElementById( "timerView" ).innerHTML = "00:00";
+        //UpDownボタンの無効化
+        var e = document.getElementsByClassName('buttonUpDown');
+        for(var i=0; i < e.length; i++){
+          e[i].disabled = false;
+          } 
+
+        document.getElementById( "timerView" ).innerHTML = "00:00:00";
+        myCnt=0;
       }
  
       function myTimer(){
@@ -69,16 +134,22 @@
         }else{
           myCnt = myCnt + 1;
         }
-        second = myCnt % 60;
-        minute = Math.floor(myCnt / 60);
+        msec = myCnt % 100;
+        second = Math.floor(myCnt / 100) % 60;
+        minute = Math.floor(myCnt / 6000);
+        if(msec < 10) msec = "0" + msec;
         if(second < 10) second = "0" + second;
         if(minute < 10) minute = "0" + minute;
-        document.getElementById( "timerView" ).innerHTML = minute +":"+ second ;
+        document.getElementById( "timerView" ).innerHTML = minute +":"+ second +":"+ msec;
         if ( myCnt == 0 ){
           clearInterval( myTim );
           alert( "It's time." );
           //STARTボタンの有効化
         document.getElementById("buttonStart").disabled = false;
+          //PAUSEボタンの無効化
+        document.getElementById("buttonPause").disabled = true;
+          //RESETボタンの無効化
+        document.getElementById("buttonReset").disabled = true;
         }
       }
     </script>
@@ -91,26 +162,45 @@
       }
 
       #timerView {
-        font-size: 140px;
+        font-size: 100px;
         color: #20b2aa;
+      }
+
+      .buttonUpDown{
+        margin-left: 25px;
+        margin-right: 25px;
+        background-color: #777777;
       }
     </style>
   </head>
   <body onLoad="test()">
   <div id="main">
     <form name="myForm">
-        <SPAN ID="timerView">00:00</SPAN><BR><BR>
+        <input type="button" class="buttonUpDown" value="▲" onclick="timeUpDown(0)">
+        <input type="button" class="buttonUpDown" value="▲" onclick="timeUpDown(1)">
+        <input type="button" class="buttonUpDown" value="▲" onclick="timeUpDown(2)">
+        <input type="button" class="buttonUpDown" value="▲" onclick="timeUpDown(3)">
+        <input type="button" class="buttonUpDown" value="▲" onclick="timeUpDown(4)">
+        <input type="button" class="buttonUpDown" value="▲" onclick="timeUpDown(5)"><br>
+        <SPAN ID="timerView">00:00:00</SPAN><br>
+        <input type="button" class="buttonUpDown" value="▼" onclick="timeUpDown(6)">
+        <input type="button" class="buttonUpDown" value="▼" onclick="timeUpDown(7)">
+        <input type="button" class="buttonUpDown" value="▼" onclick="timeUpDown(8)">
+        <input type="button" class="buttonUpDown" value="▼" onclick="timeUpDown(9)">
+        <input type="button" class="buttonUpDown" value="▼" onclick="timeUpDown(10)">
+        <input type="button" class="buttonUpDown" value="▼" onclick="timeUpDown(11)">
+        <BR><BR>
+        Preset:
         <select name="myMenu">
-          <option value="0">time Select</option>
-          <option value="300">５分 </option>
-          <option value="195">３分１５秒 </option>
-          <option value="180">３分 </option>
-          <option value="165">２分４５秒 </option>
-          <option value="150">２分３０秒 </option>
-          <option value="120">２分 </option>
-          <option value="60">１分 </option>
-          <option value="30">３０秒 </option>
-        </select><BR><BR>
+          <option value="0">Default</option>
+          <option value="18000">3 minutes </option>
+          <option value="30000">5 minutes </option>
+          <option value="60000">10 minutes </option>
+          <option value="90000">15 minutes </option>
+          <option value="180000">30 minutes </option>
+          <option value="540000">90 minutes </option>
+        </select>
+        <input type="button" id="buttonSet" value="SET" onclick="preset()"><BR><BR>
         <input type="button" id="buttonStart" value="START" onclick="timerStart()">
         <input type="button" id="buttonPause" value="  PAUSE  " onclick="timerPause(this)">
         <input type="button" id="buttonReset" value="RESET"  onclick="timerReset()"><BR><BR>
