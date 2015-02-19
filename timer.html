@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Kiefer Timer</title>
+    <script>
+      var myCnt = 0;
+      var myTim = 0;
+      var second　= 0;
+      var minute = 0;
+      var countDownFlag = false;
+
+      function test(){
+         //PAUSEボタンの無効化
+        document.getElementById("buttonPause").disabled = true;
+        //RESETボタンの無効化
+        document.getElementById("buttonReset").disabled = true;
+      }
+
+      function timerStart(){
+        var mySelect = document.myForm.myMenu.selectedIndex;
+        myCnt = eval ( document.myForm.myMenu.options[mySelect].value );
+        if(myCnt > 0){
+          countDownFlag = true;
+        }else{
+          countDownFlag = false;
+        }
+        myTim = setInterval ( "myTimer()", 1000 );
+
+        //STARTボタンの無効化
+        document.getElementById("buttonStart").disabled = true;
+        //PAUSEボタンの有効化
+        document.getElementById("buttonPause").disabled = false;
+      }
+
+      function timerPause(button){
+
+        if(button.value == "  PAUSE  "){
+        // 生成されたタイマーIDを渡すことで停止する
+          clearInterval(myTim);
+          button.value = "RESTART";
+          //RESETボタンの有効化
+        document.getElementById("buttonReset").disabled = false;
+        }else{
+          myTim = setInterval ( "myTimer()", 1000 );
+          button.value = "  PAUSE  ";
+          //RESETボタンの無効化
+        document.getElementById("buttonReset").disabled = true;
+        }
+
+      }
+
+      function timerReset(){
+        clearInterval(myTim);
+        document.getElementById("buttonPause").value = "  PAUSE  ";
+        //STARTボタンの有効化
+        document.getElementById("buttonStart").disabled = false;
+        //PAUSEボタンの無効化
+        document.getElementById("buttonPause").disabled = true;
+        //RESETボタンの無効化
+        document.getElementById("buttonReset").disabled = true;
+
+        document.getElementById( "timerView" ).innerHTML = "00:00";
+      }
+ 
+      function myTimer(){
+        if(countDownFlag){
+          myCnt = myCnt - 1;
+        }else{
+          myCnt = myCnt + 1;
+        }
+        second = myCnt % 60;
+        minute = Math.floor(myCnt / 60);
+        if(second < 10) second = "0" + second;
+        if(minute < 10) minute = "0" + minute;
+        document.getElementById( "timerView" ).innerHTML = minute +":"+ second ;
+        if ( myCnt == 0 ){
+          clearInterval( myTim );
+          alert( "It's time." );
+          //STARTボタンの有効化
+        document.getElementById("buttonStart").disabled = false;
+        }
+      }
+    </script>
+    <style>
+      #main {
+        text-align: center;
+        height: 200px;
+        background-color: #000000;
+        font-family: "メイリオ", sans-serif;
+      }
+
+      #timerView {
+        font-size: 140px;
+        color: #20b2aa;
+      }
+    </style>
+  </head>
+  <body onLoad="test()">
+  <div id="main">
+    <form name="myForm">
+        <SPAN ID="timerView">00:00</SPAN><BR><BR>
+        <select name="myMenu">
+          <option value="0">time Select</option>
+          <option value="300">５分 </option>
+          <option value="195">３分１５秒 </option>
+          <option value="180">３分 </option>
+          <option value="165">２分４５秒 </option>
+          <option value="150">２分３０秒 </option>
+          <option value="120">２分 </option>
+          <option value="60">１分 </option>
+          <option value="30">３０秒 </option>
+        </select><BR><BR>
+        <input type="button" id="buttonStart" value="START" onclick="timerStart()">
+        <input type="button" id="buttonPause" value="  PAUSE  " onclick="timerPause(this)">
+        <input type="button" id="buttonReset" value="RESET"  onclick="timerReset()"><BR><BR>
+        <div id = "link"><a href="index.html">Back</a><div>
+      </div>
+
+    </form>
+  </body>
+</html>
