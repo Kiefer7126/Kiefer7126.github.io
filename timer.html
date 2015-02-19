@@ -118,7 +118,7 @@
         //UpDownボタンの有効化
         document.getElementsByClassName("buttonUpDown").disabled = false;
 
-        //UpDownボタンの無効化
+        //UpDownボタンの有効化
         var e = document.getElementsByClassName('buttonUpDown');
         for(var i=0; i < e.length; i++){
           e[i].disabled = false;
@@ -144,12 +144,7 @@
         if ( myCnt == 0 ){
           clearInterval( myTim );
           alert( "It's time." );
-          //STARTボタンの有効化
-        document.getElementById("buttonStart").disabled = false;
-          //PAUSEボタンの無効化
-        document.getElementById("buttonPause").disabled = true;
-          //RESETボタンの無効化
-        document.getElementById("buttonReset").disabled = true;
+          timerReset();
         }
       }
     </script>
