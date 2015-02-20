@@ -15,7 +15,7 @@
       var countSecView = "00";
       var countMinView = "00";
       var countMsecView = "00";
-      var timeArray = [60000,6000,1000,100,10,1,-60000,-6000,-1000,-10,-1];
+      var timeArray = [6000,600,100,10,1,0,-6000,-600,-100,-10,-1,0];
 
       function test(){
          //PAUSEボタンの無効化
@@ -38,9 +38,9 @@
             myCnt = 0;
           }
 
-          countMinView = Math.floor(myCnt / 6000);
-          countSecView = (Math.floor(myCnt/100))%60;
-          countMsecView = myCnt%100;
+          countMinView = Math.floor(myCnt*10 / 6000);
+          countSecView = (Math.floor(myCnt*10 /100))%60;
+          countMsecView = myCnt*10 %100;
 
         if(countMsecView < 10) countMsecView = "0" + countMsecView;
         if(countSecView < 10) countSecView = "0" + countSecView;
@@ -54,9 +54,9 @@
         var mySelect = document.myForm.myMenu.selectedIndex;
         myCnt = eval ( document.myForm.myMenu.options[mySelect].value );
 
-        msec = myCnt % 100;
-        second = Math.floor(myCnt / 100) % 60;
-        minute = Math.floor(myCnt / 6000);
+        msec = myCnt*10 % 100;
+        second = Math.floor(myCnt*10 / 100) % 60;
+        minute = Math.floor(myCnt*10 / 6000);
         if(msec < 10) msec = "0" + msec;
         if(second < 10) second = "0" + second;
         if(minute < 10) minute = "0" + minute;
@@ -70,7 +70,7 @@
         }else{
           countDownFlag = false;
         }
-        myTim = setInterval ( "myTimer()", 10 );
+        myTim = setInterval ( "myTimer()", 100 );
 
         //STARTボタンの無効化
         document.getElementById("buttonStart").disabled = true;
@@ -96,7 +96,7 @@
           //RESETボタンの有効化
         document.getElementById("buttonReset").disabled = false;
         }else{
-          myTim = setInterval ( "myTimer()", 10 );
+          myTim = setInterval ( "myTimer()", 100 );
           button.value = "  PAUSE  ";
           //RESETボタンの無効化
         document.getElementById("buttonReset").disabled = true;
@@ -134,9 +134,9 @@
         }else{
           myCnt = myCnt + 1;
         }
-        msec = myCnt % 100;
-        second = Math.floor(myCnt / 100) % 60;
-        minute = Math.floor(myCnt / 6000);
+        msec = myCnt*10 % 100 + Math.floor( Math.random() * 10);;
+        second = Math.floor(myCnt*10 / 100) % 60;
+        minute = Math.floor(myCnt*10 / 6000);
         if(msec < 10) msec = "0" + msec;
         if(second < 10) second = "0" + second;
         if(minute < 10) minute = "0" + minute;
@@ -188,12 +188,12 @@
         Preset:
         <select name="myMenu">
           <option value="0">Default</option>
-          <option value="18000">3 minutes </option>
-          <option value="30000">5 minutes </option>
-          <option value="60000">10 minutes </option>
-          <option value="90000">15 minutes </option>
-          <option value="180000">30 minutes </option>
-          <option value="540000">90 minutes </option>
+          <option value="1800">3 minutes </option>
+          <option value="3000">5 minutes </option>
+          <option value="6000">10 minutes </option>
+          <option value="9000">15 minutes </option>
+          <option value="18000">30 minutes </option>
+          <option value="54000">90 minutes </option>
         </select>
         <input type="button" id="buttonSet" value="SET" onclick="preset()"><BR><BR>
         <input type="button" id="buttonStart" value="START" onclick="timerStart()">
