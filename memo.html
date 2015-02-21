@@ -8,40 +8,245 @@
     var offsetX = 0;
     var offsetY = 0;
 
+    var memoCurrentId = 1;
+
+    var memoArray = new Array();
+
     function dragMemo(event){
 
-    //付箋のＩＤを格納
+      //付箋のＩＤを格納
       event.dataTransfer.setData("text", event.target.id);
 
-    //ドラッグした付箋の取得
+      //ドラッグした付箋の取得
       var memoElement = document.getElementById(event.target.id);
 
-//要素.offsetLeft : 頂点のX座標
-//要素.offsetTop : 頂点のＹ座標
+      //要素.offsetLeft : 頂点のX座標
+      //要素.offsetTop : 頂点のＹ座標
 
-// ドラッグ時のマウスカーソルと頂点の座標との差 (*1)
+      // ドラッグ時のマウスカーソルと頂点の座標との差 (*1)
       offsetX = event.clientX - memoElement.offsetLeft;
       offsetY = event.clientY - memoElement.offsetTop;
     }
 
-    function dropMemo(event){
-    //格納されたＩＤを取り出す
-      var id = event.dataTransfer.getData("text");
+    // function dropMemo(event){
+    //   //格納されたＩＤを取り出す
+    //   var id = event.dataTransfer.getData("text");
 
-    //ドラッグした付箋の取得
-      var memoElement = document.getElementById(id);
+    //   //ドラッグした付箋の取得
+    //   var memoElement = document.getElementById(id);
 
-//　ドロップ時のマウスカーソルの頂点座標 - (*1)　= 頂点座標
-      memoElement.style.left = event.clientX - offsetX + "px";
-      memoElement.style.top = event.clientY - offsetY + "px";
+    //   //　ドロップ時のマウスカーソルの頂点座標 - (*1)　= 頂点座標
+    //   memoElement.style.left = event.clientX - offsetX + "px";
+    //   memoElement.style.top = event.clientY - offsetY + "px";
+    // }
 
 
-    }
 
     function dragOverMemo(event){
 
       //通常のドラッグの操作を禁止する
       event.preventDefault();
+    }
+
+    // function addMemo(){
+    //   //入力されたテキストの取得
+    //   var memoText = document.getElementById("memoText").value;
+
+    //   var memoColor = "yellow";
+    //   if(document.getElementById("memoY").checked) memoColor = "yellow";
+    //   if(document.getElementById("memoR").checked) memoColor = "red";
+    //   if(document.getElementById("memoG").checked) memoColor = "green";
+    //   if(document.getElementById("memoB").checked) memoColor = "blue";
+
+    //   //付箋DOM要素の作成
+    //   var memoElement = document.createElement("a");//Aタグの要素を作成
+
+    //   //付箋DOM要素のプロパティをセット
+    //   memoElement.href = "#";
+    //   memoElement.id = "memo" + memoCurrentId;
+    //   memoElement.className = "memo " + memoColor;
+    //   memoElement.draggable = true;
+
+    //   //付箋DOM要素のイベントをセット
+    //   memoElement.ondragstart = dragMemo;//指定した関数の第一引数にeventオブジェクトが必ず渡されるので引数は指定しない
+
+    //   //付箋DOM要素のテキストをセット
+    //   memoElement.innerHTML = memoText;
+
+    //   //付箋エリアに作成した付箋を追加
+    //   var memoArea = document.getElementById("memoArea");
+    //   memoArea.appendChild(memoElement);
+
+    //   memoCurrentId++;
+    // }
+
+//-----オブジェクト指向-----//
+    function addMemo() {
+
+      //alert("I'm here." + memoCurrentId);
+
+      //入力されたテキストの取得
+      var memoText = document.getElementById("memoText").value;
+
+      // 入力されたテキストのチェック
+      if (memoText.length > 20) {
+        alert("The strings that you have entered is too long.");
+      } else {
+
+      var memoColor = "yellow";
+      if(document.getElementById("memoY").checked) memoColor = "yellow";
+      if(document.getElementById("memoR").checked) memoColor = "red";
+      if(document.getElementById("memoG").checked) memoColor = "green";
+      if(document.getElementById("memoB").checked) memoColor = "blue";
+
+      //付箋オブジェクトの生成
+      var memo = new Memo(memoCurrentId, memoText, memoColor, 50, 80);
+
+      //付箋DOM要素の作成
+      memo.create();
+
+      //付箋情報をローカルストレージに保存
+      memo.save();
+
+      //付箋連想配列に追加
+      memoArray[memo.id] = memo;
+
+      memoCurrentId++;
+
+      //付箋IDカウンターをローカルストレージに保存
+      localStorage.setItem("memoCurrentId", memoCurrentId);
+      }
+    }
+
+//-----オブジェクト指向-----//
+    function dropMemo(event) {
+      //格納されたIDを取り出す
+      var id = event.dataTransfer.getData("text");
+
+      //ドラッグした付箋の取得
+      var memo = memoArray[id];
+
+      //付箋の座標をドロップした座標にセット
+      memo.move(event.clientX - offsetX, event.clientY - offsetY);
+
+      //付箋情報をローカルストレージに保存
+      memo.save();
+    }
+
+
+    function Memo(id, text, color, x, y) {
+      this.id = "memo" + id;
+      this.text = text;
+      this.color = color;
+      this.x = x;
+      this.y = y;
+
+      //DOM要素を作成するcreateメソッド
+      this.create = function() {
+        //付箋DOM要素の作成
+        var memoElement = document.createElement("a");
+        memoElement.href = "#";
+        memoElement.id = this.id;
+        memoElement.className = "memo " + this.color;
+        memoElement.draggable = true;
+        memoElement.ondragstart = dragMemo;
+        memoElement.innerHTML = this.text;
+
+        //付箋エリアに作成した付箋を追加
+        var memoArea = document.getElementById("memoArea");
+        memoArea.appendChild(memoElement);
+      };
+    }
+
+    Memo.prototype.move = function(x, y) {
+      this.x = x;
+      this.y = y;
+
+      var memoElement = document.getElementById(this.id);
+      memoElement.style.left = x + "px";
+      memoElement.style.top = y + "px";
+    };
+
+    Memo.prototype.remove = function() {
+      var memoElement = document.getElementById(this.id);
+
+      //付箋エリアから子要素を削除
+      var memoArea = document.getElementById("memoArea");
+      memoArea.removeChild(memoElement);
+
+      //ローカルストレージから付箋情報を削除
+      localStorage.removeItem(this.id);
+    };
+
+    function dropTrash(event) {
+      //選択されたIDの取得
+      var id = event.dataTransfer.getData("text");
+
+      //付箋オブジェクトの取得
+      var memo = memoArray[id];
+
+      if(　confirm("Are you sure you want to delete this Post-it?")　)　{
+        //DOM要素の削除
+        memo.remove();
+
+        //付箋オブジェクトの削除
+        delete memoArray[id];  
+      }      
+    }
+
+    function loadMemo() {
+      //付箋IDカウンターの読み込み
+      memoCurrentId = localStorage.getItem("memoCurrentId");
+      if (memoCurrentId == null) memoCurrentId = 1;
+
+      //すべての付箋情報の読み込み
+      for(var i=1; i<memoCurrentId; i++) {
+        //付箋IDの作成
+        var memoId = "memo"+i;
+
+        //付箋情報(JSON形式)の読み込み
+        var memoJSON = localStorage.getItem(memoId);
+
+        //付箋情報の取得、付箋紙のセット
+        if(memoJSON != null){
+          //JSON形式の解析
+          var memoData = JSON.parse(memoJSON);
+
+          //付箋情報の取得
+          var memoText = memoData.text;
+          var memoColor = memoData.color;
+          var memoX = memoData.x;
+          var memoY = memoData.y;
+
+          //付箋オブジェクトの生成
+          var memo = new Memo(i, memoText, memoColor, memoX, memoY);
+
+          //付箋要素(DOM要素)の作成
+          memo.create();
+
+          //付箋要素(DOM要素)の移動
+          memo.move(memo.x, memo.y);
+
+          //連想配列に付箋紙オブジェクトを格納
+          memoArray[memo.id] = memo;
+        }
+      }
+    }
+
+    Memo.prototype.save = function() {
+      //付箋情報をJSON形式で格納
+      var memoJSON = {
+        "text":this.text,
+        "color":this.color,
+        "x":this.x,
+        "y":this.y
+      };
+
+      //JSONオブジェクトを文字列に変換
+      var memoStringJSON = JSON.stringify(memoJSON);
+
+      //ローカルストレージに付箋情報を保存
+      localStorage.setItem(this.id, memoStringJSON);
     }
 
   </script>
@@ -54,6 +259,15 @@
       height: 480px;
       padding: 10px;
     }  
+
+    #trashArea {
+      background-color: #6699CC;
+      color: #FFFFFF;
+      border: dashed #333366 1px;
+      width: 620px;
+      height: 100px;
+      padding: 10px;
+    }
 
     .memo {
       text-decoration: none;
@@ -72,11 +286,29 @@
     .yellow { background-color: #FFFFCC; }
     .red { background-color: #FFCCCC; }
     .green { background-color: #CCFFCC}
+    .blue { background-color: #CCCFFF}
+
+    form {
+      background-color: #CCCCCC;
+      border: solid #999999 1px;
+      width: 620;
+      padding: 10px;
+    }
 
   </style>
-  <body>
+  <body onLoad="loadMemo()">
+    <form>
+      <input type="text" id="memoText" size="50" placeholder="Please enter your memo">
+      <!-- 同じnameはその中からひとつ選択 -->
+      <input type="radio" name="memoColor" id="memoY" checked>Yellow
+      <input type="radio" name="memoColor" id="memoR">Red
+      <input type="radio" name="memoColor" id="memoG">Green
+      <input type="radio" name="memoColor" id="memoB">Blue
+      <input type="button" value="OK" onClick="addMemo()">
+    </form>
     <div id="memoArea" onDragOver="dragOverMemo(event)" onDrop="dropMemo(event)">
-      <a href="#" id="memo1" class="memo green" draggable="true" onDragStart="dragMemo(event)">Memo 1</a>
+      <!-- <a href="#" id="memo1" class="memo green" draggable="true" onDragStart="dragMemo(event)">Memo 1</a> -->
     </div>
+    <div id="trashArea" ondragover="dragOverMemo(event)" ondrop="dropTrash(event)">Trash Area</div>
   </body>
 </html>
