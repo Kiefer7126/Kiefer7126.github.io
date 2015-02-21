@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Post-it</title>
+  </head>
+  <script>
+    var offsetX = 0;
+    var offsetY = 0;
+
+    function dragMemo(event){
+
+    //付箋のＩＤを格納
+      event.dataTransfer.setData("text", event.target.id);
+
+    //ドラッグした付箋の取得
+      var memoElement = document.getElementById(event.target.id);
+
+//要素.offsetLeft : 頂点のX座標
+//要素.offsetTop : 頂点のＹ座標
+
+// ドラッグ時のマウスカーソルと頂点の座標との差 (*1)
+      offsetX = event.clientX - memoElement.offsetLeft;
+      offsetY = event.clientY - memoElement.offsetTop;
+    }
+
+    function dropMemo(event){
+    //格納されたＩＤを取り出す
+      var id = event.dataTransfer.getData("text");
+
+    //ドラッグした付箋の取得
+      var memoElement = document.getElementById(id);
+
+//　ドロップ時のマウスカーソルの頂点座標 - (*1)　= 頂点座標
+      memoElement.style.left = event.clientX - offsetX + "px";
+      memoElement.style.top = event.clientY - offsetY + "px";
+
+
+    }
+
+    function dragOverMemo(event){
+
+      //通常のドラッグの操作を禁止する
+      event.preventDefault();
+    }
+
+  </script>
+  <style>
+
+    #memoArea {
+      background-color: #EEEEEE;
+      border: solid #999999 1px;
+      width: 620px;
+      height: 480px;
+      padding: 10px;
+    }  
+
+    .memo {
+      text-decoration: none;
+      color: #000000;
+      position: absolute;
+      left: 50px;
+      top: 80px;
+      border: solid #999999 1px;
+      width: 180px;
+      height: 40px;
+      padding: 10px;
+      opacity: 0.5;
+
+    }
+
+    .yellow { background-color: #FFFFCC; }
+    .red { background-color: #FFCCCC; }
+    .green { background-color: #CCFFCC}
+
+  </style>
+  <body>
+    <div id="memoArea" onDragOver="dragOverMemo(event)" onDrop="dropMemo(event)">
+      <a href="#" id="memo1" class="memo green" draggable="true" onDragStart="dragMemo(event)">Memo 1</a>
+    </div>
+  </body>
+</html>
