@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="Spectrogram" />
+    <meta name="viewport" content="initial-scale = 0.9" />
+    <!-- スマホ対応 http://www.tagindex.com/html5/page/meta_viewport.html -->
+    <title>Spectrogram</title>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/spectrogram.js"></script>
+    <script type="text/javascript" src="scripts/audioBuffer.js"></script>
+    <script type="text/javascript" src="scripts/menu.js"></script>
+    <script type="text/javascript" src="scripts/chroma.js"></script>
+<!--    <script type="text/javascript" src="scripts/bufferLoader.js"></script>-->
+    <link rel="stylesheet" href="styles/index.css" />
+</head>
+
+<body>
+  <div id="page">
+    <div id="main">
+      <div id="menu">
+        <ul class="tab">
+          <li class="active">Preference</li>
+          <li>Import</li>
+          <li>Controller</li>
+          <li>FFT</li>
+        </ul>
+        <ul class="tabContent">
+          <li>
+            <p>
+              <label for="range-draw-interval">
+                DRAW INTERVAL : 
+                <span id="output-draw-interval">10</span> msec
+              </label>
+            </p>
+            <p>
+              <input type="range" id="range-draw-interval" value="10" min="10" max="1000" step="10">
+            </p>
+            <p>
+              WINDOW SIZE : 
+            </p>
+            <p>
+              <select id="select-fft-size">
+                <option value="32">32</option>
+                <option value="64">64</option>
+                <option value="128">128</option>
+                <option value="256">256</option>
+                <option value="512">512</option>
+                <option value="1024">1024</option>
+                <option value="2048" selected="">2048</option>
+                <option value="4096">4096</option>
+              </select>
+            </p>
+            <p>
+              <label>
+                <input type="checkbox"> LOOP
+              </label>
+            </p>
+          </li>
+          <li class="hide">
+            <p id="progress-file-upload-audio">
+            </p>
+            <p>
+              <input type="file" id="file-upload-audio" value="Choose File" accept="audio/*">
+            </p>
+          </li>
+          <li class="hide">
+            <input type="button" id="buttonPlay" value="Play">
+          </li>
+          <li class="hide">タブ4の内容</li>
+        </ul>
+      </div>
+      <div id="content">
+        <h2 class="subTitle">WaveForm</h2>
+        <h4 class="subTitle">Right / Left (Time Domain)</h4>
+        <div class = "CanvasWrapper">
+          <canvas height="100" width="800"></canvas>   
+        </div>
+        <div class = "CanvasWrapper">
+          <canvas height="100" width="800"></canvas>
+        </div>
+        
+        <h4 class="subTitle">Time Domain / Freqency Domain</h4>
+        <div class = "CanvasWrapper">
+          <canvas height="175" width="400"></canvas>
+          <canvas height="175" width="400"></canvas>
+        </div>
+        <h2 class="subTitle">Spectrogram</h2>
+        <div class = "CanvasWrapper">
+          <canvas height="500" width="800"></canvas>
+        </div>
+      </div>      
+    </div>
+  </div>
+</body>
+</html>
