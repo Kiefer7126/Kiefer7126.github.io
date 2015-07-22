@@ -22,44 +22,11 @@
     <div id="main">
       <div id="menu">
         <ul class="tab">
-          <li class="active">Preference</li>
-          <li>Import</li>
-          <li>Controller</li>
-          <li>FFT</li>
+          <li class="active">Import</li>
+          <li>Preference</li>
         </ul>
         <ul class="tabContent">
           <li>
-            <p>
-              <label for="range-draw-interval">
-                DRAW INTERVAL : 
-                <span id="output-draw-interval">10</span> msec
-              </label>
-            </p>
-            <p>
-              <input type="range" id="range-draw-interval" value="10" min="10" max="1000" step="10">
-            </p>
-            <p>
-              WINDOW SIZE : 
-            </p>
-            <p>
-              <select id="select-fft-size">
-                <option value="32">32</option>
-                <option value="64">64</option>
-                <option value="128">128</option>
-                <option value="256">256</option>
-                <option value="512">512</option>
-                <option value="1024">1024</option>
-                <option value="2048" selected="">2048</option>
-                <option value="4096">4096</option>
-              </select>
-            </p>
-            <p>
-              <label>
-                <input type="checkbox"> LOOP
-              </label>
-            </p>
-          </li>
-          <li class="hide">
             <p id="progress-file-upload-audio">
             </p>
             <p>
@@ -67,9 +34,29 @@
             </p>
           </li>
           <li class="hide">
-            <input type="button" id="buttonPlay" value="Play">
+            <p>
+              <label for="range-draw-interval">
+                DRAW INTERVAL : 
+              </label>
+              <input type="range" id="range-draw-interval" value="10" min="10" max="1000" step="10">
+              <span id="output-draw-interval">10</span> msec
+            </p>
+            <p>
+              WINDOW SIZE : 
+              <select id="select-fft-size">
+                <option value="32">32</option>
+                <option value="64">64</option>
+                <option value="128">128</option>                        　　　　　　　　　<option value="256">256</option>
+                <option value="512">512</option>
+                <option value="1024">1024</option>
+                <option value="2048" selected="">2048</option>
+                <option value="4096">4096</option>
+              </select>
+            </p>
+            <label>
+              <input type="checkbox"> LOOP
+            </label>
           </li>
-          <li class="hide">タブ4の内容</li>
         </ul>
       </div>
       <div id="content">

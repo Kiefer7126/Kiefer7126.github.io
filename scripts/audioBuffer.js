@@ -350,23 +350,27 @@
               var colorScale = new chroma.scale(['black', 'blue', 'green', 'yellow', 'red']).out('hex');
                                   //canvasContext.strokeStyle = 'rgba(0, 125, 125, 1.0 )';
                     canvasContext.fillStyle = colorScale( spectrums[i] / 250);
-                    canvasContext.fillRect(spetrogramCount*2.1,innerHeight - i*1.7, 3, 3);
+                    canvasContext.fillRect(spetrogramCount*2.1, height - i*2.0, 3, 3);
             }
  
             // Draw grid (Y)
-            canvasContext.fillStyle = 'rgba(255, 255, 255, 0.5)';
-            canvasContext.fillRect(paddingLeft, middle,      innerWidth, 1);
-            canvasContext.fillRect(paddingLeft, paddingTop,  innerWidth, 1);
-            canvasContext.fillRect(paddingLeft, innerBottom, innerWidth, 1);
- 
-            // Draw text (Y)
-            canvasContext.fillStyle = 'rgba(255, 255, 255, 1.0)';
-            canvasContext.font      = '16px "Times New Roman"';
-            canvasContext.fillText('1.00', 3, paddingTop);
-            canvasContext.fillText('0.50', 3, middle);
-            canvasContext.fillText('0.00', 3, innerBottom);
+//            canvasContext.fillStyle = 'rgba(255, 255, 255, 0.5)';
+//            canvasContext.fillRect(paddingLeft, middle,      innerWidth, 1);
+//            canvasContext.fillRect(paddingLeft, paddingTop,  innerWidth, 1);
+//            canvasContext.fillRect(paddingLeft, innerBottom, innerWidth, 1);
+// 
+//            // Draw text (Y)
+//            canvasContext.fillStyle = 'rgba(255, 255, 255, 1.0)';
+//            canvasContext.font      = '16px "Times New Roman"';
+//            canvasContext.fillText('1.00', 3, paddingTop);
+//            canvasContext.fillText('0.50', 3, middle);
+//            canvasContext.fillText('0.00', 3, innerBottom);
           
             spetrogramCount++;
+          if(spetrogramCount*2.1 >= width){
+            spetrogramCount = 1;
+            canvasContext.clearRect(0, 0, width, height);
+          }
  
             timerids[2] = window.setTimeout(function() {
                 drawSpectrogram(sampleRate, interval);
@@ -385,6 +389,7 @@
  
         // This funciton is executed after getting ArrayBuffer of audio data
         var startAudio = function(arrayBuffer) {
+          spetrogramCount = 1;
  
             // The 2nd argument for decodeAudioData
             var successCallback = function(audioBuffer) {

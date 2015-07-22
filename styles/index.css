@@ -9,6 +9,7 @@ canvas{
   width:100%;
   position: fixed;
   z-index: 999;
+  background-color:  white;
 }
 
 .CanvasWrapper{
@@ -29,6 +30,7 @@ canvas{
   padding:10px 85px; 
   float:left; 
   margin-right:0px;
+  width: 100px;
 }
 
 .tab li.active{
@@ -51,5 +53,5 @@ margin: 0px;
 }
 
 #content{
-  padding: 250px 0 0 0;
+  padding: 190px 0 0 0;
 }
