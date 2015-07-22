@@ -27,6 +27,11 @@
         // for drawTimeDomain(), drawSpectrum()
         var timerids = [null, null];
         var interval = 10;
+      
+        /*
+         * Draw Audio
+         * This function draws wave form
+         */
  
         var drawAudio = function(canvas, data, sampleRate) {
             var canvasContext = canvas.getContext('2d');
@@ -112,22 +117,30 @@
         var canvases = {
             time     : null,
             spectrum : null,
-            spectrogram : null
+            spectrogram : null,
+            visualize : null
         };
  
         var contexts = {
             time     : null,
             spectrum : null,
-            spectrogram : null
+            spectrogram : null,
+            visualize : null
         };
  
         canvases.time     = document.querySelectorAll('canvas')[2];
         canvases.spectrum = document.querySelectorAll('canvas')[3];
         canvases.spectrogram = document.querySelectorAll('canvas')[4];
+        canvases.visualize = document.querySelectorAll('canvas')[5];
  
         contexts.time     = canvases.time.getContext('2d');
         contexts.spectrum = canvases.spectrum.getContext('2d');
         contexts.spectrogram = canvases.spectrogram.getContext('2d');
+        contexts.visualize = canvases.visualize.getContext('2d');
+      
+        /*
+         * Draw Time Domain
+         */
  
         var drawTimeDomain = function(sampleRate) {
             var canvas        = canvases.time;
@@ -213,6 +226,10 @@
                 drawTimeDomain(sampleRate);
             }, interval);
         };
+      
+        /*
+         * Draw Spectrum
+         */
  
         var drawSpectrum = function(sampleRate) {
             var canvas        = canvases.spectrum;
@@ -246,7 +263,7 @@
             canvasContext.clearRect(0, 0, width, height);
  
             // Draw spectrum
-            canvasContext.beginPath();
+            canvasContext.beginPath();   
  
             for (var i = 0, len = spectrums.length; i < len; i++) {
                 var x = Math.floor((i / len) * innerWidth) + paddingLeft;
@@ -257,7 +274,7 @@
                 } else {
                     canvasContext.lineTo(x, y);
                 }
- 
+
                 // 1000 Hz ?
                 if ((i % n1kHz) === 0) {
                     var f    = Math.floor(1000 * (i / n1kHz));  // index -> frequency
@@ -298,9 +315,11 @@
             }, interval);
         };
       
+        /*
+         * Draw Spectrograｍ
+         */
       
         var spetrogramCount = 1;
-      
         var drawSpectrogram = function(sampleRate, interval) {
           
             var canvas        = canvases.spectrogram;
@@ -345,15 +364,15 @@
               var soundLen = len * 5.5 / sampleRate;
               var xStep = innerWidth * soundLen / interval;
               
-              var x = Math.floor(xStep*spetrogramCount) + paddingLeft;
-              var y = Math.floor(( (len - i) / len) * innerHeight) + paddingTop;
-              
-                    canvasContext.moveTo(x - xStep, y);
-                    canvasContext.lineTo(x, y);
+//              var x = Math.floor(xStep*spetrogramCount) + paddingLeft;
+//              var y = Math.floor(( (len - i) / len) * innerHeight) + paddingTop;
+//              
+//                    canvasContext.moveTo(x - xStep, y);
+//                    canvasContext.lineTo(x, y);
               
               var colorScale = new chroma.scale(['black', 'blue', 'green', 'yellow', 'red']).out('hex');
                                   //canvasContext.strokeStyle = 'rgba(0, 125, 125, 1.0 )';
-                    canvasContext.fillStyle = colorScale( spectrums[i] / 250);
+                    canvasContext.fillStyle = colorScale( spectrums[i] / 256);
                     canvasContext.fillRect(spetrogramCount*2.1, height - i*2.0, 3, 3);
             }
 
@@ -368,9 +387,82 @@
                 drawSpectrogram(sampleRate, interval);
             }, interval);
         };
+      
+       /*
+         * Draw Visualize
+         */
  
-        // Trigger 'ended' event
-        var trigger = function() {
+        var drawVisualize = function(sampleRate) {
+            var canvas        = canvases.visualize;
+            var canvasContext = contexts.visualize;
+ 
+            var width  = canvas.width;
+            var height = canvas.height;
+ 
+            var middle = (height / 2);
+ 
+            // Frequency resolution
+            var fsDivN = sampleRate / analyser.fftSize;
+ 
+            // This value is the number of samples during 1000 Hz
+            var n1kHz = Math.floor(1000 / fsDivN);
+ 
+            // Get data for drawing spectrum
+            var spectrums = new Uint8Array(analyser.frequencyBinCount / 4);
+            analyser.getByteFrequencyData(spectrums);
+ 
+            // Clear previous data
+            canvasContext.clearRect(0, 0, width, height);
+ 
+            // Draw spectrum
+            canvasContext.beginPath(); 
+          
+           for (var i = 0, len = spectrums.length; i <= len; i+=1) {
+            
+            var smallR = middle/3;
+            var r = (spectrums[i]/255) * (middle/2) + smallR;
+            var initX = smallR * Math.sin(2 * Math.PI * i / (len)) + width/2;
+            var initY = smallR * Math.cos(2 * Math.PI * i / (len)) + height/2;
+              var x = r * Math.sin(2 * Math.PI * i / (len)) + width/2;
+              var y = r * Math.cos(2 * Math.PI * i / (len)) + height/2;
+   canvasContext.beginPath(); 
+                if (i == 0) {
+                    canvasContext.moveTo(x, y);
+                } else {
+                    canvasContext.lineTo(initX, initY);
+                    canvasContext.lineTo(x, y);
+                }
+            
+              var colorScale = new chroma.scale(['black', 'green', 'white']).out('hex');
+                canvasContext.strokeStyle = colorScale(spectrums[i] / 256);
+                canvasContext.lineWidth   = 2;
+                canvasContext.stroke();
+            }
+
+            // Draw spectrum
+            
+            for (var i = 0, len = spectrums.length/3; i <= len; i+=1) {
+canvasContext.beginPath(); 
+              
+             var colorScale = new chroma.scale(['black', 'green', 'white']).out('hex');                 
+              canvasContext.strokeStyle = colorScale( spectrums[i] / 256);
+              canvasContext.arc(width/2, height/2, ((spectrums[i] / 255)) * middle/3, 0, Math.PI*2, false);
+              canvasContext.lineWidth   = 1;
+              canvasContext.stroke();
+
+            }
+ 
+            timerids[3] = window.setTimeout(function() {
+                drawVisualize(sampleRate);
+            }, interval);
+        };
+ 
+        /*
+         * trigger
+         * Trigger 'ended' event
+         */
+      
+      var trigger = function() {
             var event = document.createEvent('Event');
             event.initEvent('ended', true, true);
  
@@ -378,11 +470,14 @@
                 source.dispatchEvent(event);
             }
         };
- 
-        // This funciton is executed after getting ArrayBuffer of audio data
+      
+        /*
+         * startAudio
+         * This funciton is executed after getting ArrayBuffer of audio data
+         */
+
         var startAudio = function(arrayBuffer) {
-          spetrogramCount = 1;
- 
+
             // The 2nd argument for decodeAudioData
             var successCallback = function(audioBuffer) {
                 // The 1st argument (audioBuffer) is the instance of AudioBuffer
@@ -438,11 +533,13 @@
  
                 // Start audio
                 source.start(0);
+                spetrogramCount = 1;
  
                 // Draw wave (Real Time)
                 drawTimeDomain(audioBuffer.sampleRate);
                 drawSpectrum(audioBuffer.sampleRate);
                 drawSpectrogram(audioBuffer.sampleRate, interval);
+                drawVisualize(audioBuffer.sampleRate);
  
                 // Set Callback
                 source.onended = function(event) {
@@ -457,6 +554,7 @@
                     if (timerids[0] !== null) {window.clearTimeout(timerids[0]); timerids[0] = null;}
                     if (timerids[1] !== null) {window.clearTimeout(timerids[1]); timerids[1] = null;}
                     if (timerids[2] !== null) {window.clearTimeout(timerids[2]); timerids[2] = null;}
+                    if (timerids[3] !== null) {window.clearTimeout(timerids[3]); timerids[3] = null;}
  
                     console.log('STOP by "on' + event.type + '" event handler !!');
  
@@ -539,21 +637,30 @@
                 reader.readAsArrayBuffer(file);
             }
         }, false);
- 
-        // Control Draw Interval
+      
+       /*
+        * Control Draw Interval
+        */ 
+
         document.getElementById('range-draw-interval').addEventListener(EventWrapper.MOVE, function() {
             interval = this.valueAsNumber;
             document.getElementById('output-draw-interval').textContent = this.value;
         }, false);
- 
-        // Toggle loop
+      
+       /*
+        * Toggle loop
+        */
+      
         document.querySelector('[type="checkbox"]').addEventListener(EventWrapper.CLICK, function() {
             if (source instanceof AudioBufferSourceNode) {
                 source.loop = this.checked;
             }
         }, false);
  
-        // Select fftSize
+       /*
+        * Select fftSize
+        */
+      
         document.getElementById('select-fft-size').addEventListener('change', function() {
             switch (parseInt(this.value)) {
                 case   32 :
@@ -570,6 +677,15 @@
                     window.alert('The selected FFT size is invalid.');
                     break;
             }
+        }, false);
+     
+       /*
+        * Stop Audio
+        */
+      
+        document.getElementById('stopButton').addEventListener(EventWrapper.CLICK, function() {
+         trigger();
+         source = null;
         }, false);
  
 //         Control smoothingTimeConstant

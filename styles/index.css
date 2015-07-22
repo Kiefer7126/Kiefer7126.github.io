@@ -57,7 +57,7 @@ margin: 0px;
 }
 
 #spectrogramWrapper{
-  padding-left: 5%;
+  padding: 0px;
   width: 800px;
   overflow: scroll;
 }
