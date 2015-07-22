@@ -356,20 +356,7 @@
                     canvasContext.fillStyle = colorScale( spectrums[i] / 250);
                     canvasContext.fillRect(spetrogramCount*2.1, height - i*2.0, 3, 3);
             }
- 
-            // Draw grid (Y)
-//            canvasContext.fillStyle = 'rgba(255, 255, 255, 0.5)';
-//            canvasContext.fillRect(paddingLeft, middle,      innerWidth, 1);
-//            canvasContext.fillRect(paddingLeft, paddingTop,  innerWidth, 1);
-//            canvasContext.fillRect(paddingLeft, innerBottom, innerWidth, 1);
-// 
-//            // Draw text (Y)
-//            canvasContext.fillStyle = 'rgba(255, 255, 255, 1.0)';
-//            canvasContext.font      = '16px "Times New Roman"';
-//            canvasContext.fillText('1.00', 3, paddingTop);
-//            canvasContext.fillText('0.50', 3, middle);
-//            canvasContext.fillText('0.00', 3, innerBottom);
-          
+
             spetrogramCount++;
           
           if(spetrogramCount*2.1 >= width){
@@ -469,6 +456,7 @@
                     // Stop drawing sound wave
                     if (timerids[0] !== null) {window.clearTimeout(timerids[0]); timerids[0] = null;}
                     if (timerids[1] !== null) {window.clearTimeout(timerids[1]); timerids[1] = null;}
+                    if (timerids[2] !== null) {window.clearTimeout(timerids[2]); timerids[2] = null;}
  
                     console.log('STOP by "on' + event.type + '" event handler !!');
  
