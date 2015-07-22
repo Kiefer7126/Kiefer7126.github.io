@@ -302,6 +302,7 @@
         var spetrogramCount = 1;
       
         var drawSpectrogram = function(sampleRate, interval) {
+          
             var canvas        = canvases.spectrogram;
             var canvasContext = contexts.spectrogram;
  
@@ -331,6 +332,9 @@
  
             // Clear previous data
             //canvasContext.clearRect(0, 0, width, height);
+            if(spetrogramCount == 1){
+            canvasContext.clearRect(0, 0, width, height);
+          }
  
             // Draw spectrum
             canvasContext.beginPath();
@@ -367,6 +371,7 @@
 //            canvasContext.fillText('0.00', 3, innerBottom);
           
             spetrogramCount++;
+          
           if(spetrogramCount*2.1 >= width){
             spetrogramCount = 1;
             canvasContext.clearRect(0, 0, width, height);
@@ -519,7 +524,7 @@
             } else {
                 // Create the instance of FileReader
                 var reader = new FileReader();
- 
+
                 reader.onprogress = function(event) {
                     if (event.lengthComputable && (event.total > 0)) {
                         var rate = Math.floor((event.loaded / event.total) * 100);
