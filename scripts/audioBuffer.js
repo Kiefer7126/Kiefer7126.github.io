@@ -324,63 +324,27 @@
           
             var canvas        = canvases.spectrogram;
             var canvasContext = contexts.spectrogram;
- 
-            var width  = canvas.width;
-            var height = canvas.height;
- 
-            var paddingTop    = 20;
-            var paddingBottom = 20;
-            var paddingLeft   = 30;
-            var paddingRight  = 30;
- 
-            var innerWidth  = width  - paddingLeft - paddingRight;
-            var innerHeight = height - paddingTop  - paddingBottom;
-            var innerBottom = height - paddingBottom;
- 
-            var middle = (innerHeight / 2) + paddingTop;
- 
-            // Frequency resolution
-            var fsDivN = sampleRate / analyser.fftSize;
- 
-            // This value is the number of samples during 1000 Hz
-            var n1kHz = Math.floor(1000 / fsDivN);
- 
+
             // Get data for drawing spectrum
             var spectrums = new Uint8Array(analyser.frequencyBinCount / 4);
             analyser.getByteFrequencyData(spectrums);
- 
+          
             // Clear previous data
-            //canvasContext.clearRect(0, 0, width, height);
             if(spetrogramCount == 1){
-            canvasContext.clearRect(0, 0, width, height);
+            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
           }
- 
-            // Draw spectrum
-            canvasContext.beginPath();
             
             for (var i = 0, len = spectrums.length; i < len; i++) {
-                //var x = Math.floor((i / len) * innerWidth) + paddingLeft;
-                //var y = Math.floor((1 - (spectrums[i] / 255)) * innerHeight) + paddingTop;
-              var soundLen = len * 5.5 / sampleRate;
-              var xStep = innerWidth * soundLen / interval;
-              
-//              var x = Math.floor(xStep*spetrogramCount) + paddingLeft;
-//              var y = Math.floor(( (len - i) / len) * innerHeight) + paddingTop;
-//              
-//                    canvasContext.moveTo(x - xStep, y);
-//                    canvasContext.lineTo(x, y);
-              
               var colorScale = new chroma.scale(['black', 'blue', 'green', 'yellow', 'red']).out('hex');
-                                  //canvasContext.strokeStyle = 'rgba(0, 125, 125, 1.0 )';
-                    canvasContext.fillStyle = colorScale( spectrums[i] / 256);
-                    canvasContext.fillRect(spetrogramCount*2.1, height - i*2.0, 3, 3);
+              canvasContext.fillStyle = colorScale( spectrums[i] / 256);
+              canvasContext.fillRect(spetrogramCount * 2, canvas.height - (canvas.height/len) * i, 2, 2);
             }
 
             spetrogramCount++;
           
-          if(spetrogramCount*2.1 >= width){
+          if(spetrogramCount*2.1 >= canvas.width){
             spetrogramCount = 1;
-            canvasContext.clearRect(0, 0, width, height);
+            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
           }
  
             timerids[2] = window.setTimeout(function() {
@@ -423,30 +387,29 @@
             var r = (spectrums[i]/255) * (middle/2) + smallR;
             var initX = smallR * Math.sin(2 * Math.PI * i / (len)) + width/2;
             var initY = smallR * Math.cos(2 * Math.PI * i / (len)) + height/2;
-              var x = r * Math.sin(2 * Math.PI * i / (len)) + width/2;
-              var y = r * Math.cos(2 * Math.PI * i / (len)) + height/2;
+              var x = r * Math.sin(2 * Math.PI * i / (len))*1.2 + width/2;
+              var y = r * Math.cos(2 * Math.PI * i / (len))*1.2 + height/2;
    canvasContext.beginPath(); 
                 if (i == 0) {
                     canvasContext.moveTo(x, y);
                 } else {
-                    canvasContext.lineTo(initX, initY);
-                    canvasContext.lineTo(x, y);
+                  canvasContext.lineTo(initX, initY);
+                  canvasContext.lineTo(x, y);
                 }
             
-              var colorScale = new chroma.scale(['black', 'green', 'white']).out('hex');
+              var colorScale = new chroma.scale(['black', 'rgba(0, 125, 125, 1.0)', 'white']).out('hex');
                 canvasContext.strokeStyle = colorScale(spectrums[i] / 256);
                 canvasContext.lineWidth   = 2;
                 canvasContext.stroke();
             }
-
             // Draw spectrum
             
-            for (var i = 0, len = spectrums.length/3; i <= len; i+=1) {
+            for (var i = 0, len = spectrums.length/2; i <= len; i+=4) {
 canvasContext.beginPath(); 
               
-             var colorScale = new chroma.scale(['black', 'green', 'white']).out('hex');                 
+             var colorScale = new chroma.scale(['black', 'blue', 'rgba(0, 125, 125, 1.0)', 'white']).out('hex');                 
               canvasContext.strokeStyle = colorScale( spectrums[i] / 256);
-              canvasContext.arc(width/2, height/2, ((spectrums[i] / 255)) * middle/3, 0, Math.PI*2, false);
+              canvasContext.arc(width/2, height/2, ((spectrums[i] / 255)) * smallR, 0, Math.PI*2, false);
               canvasContext.lineWidth   = 1;
               canvasContext.stroke();
 
