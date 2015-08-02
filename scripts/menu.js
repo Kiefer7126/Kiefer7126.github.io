@@ -42,3 +42,14 @@ $(function() {
     });
 });
 
+$(window).load(function(){
+  container = $('.CanvasWrapper');
+  canvas = $('.canvas');
+
+  function resizeCanvas(){
+    canvas.outerWidth(container.width());
+    canvas.outerHeight(container.width() * 1.0);  //1.0は適宜変更
+  }
+  resizeCanvas();
+  $(window).on('resize', resizeCanvas);
+});
