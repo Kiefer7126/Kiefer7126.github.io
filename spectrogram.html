@@ -62,30 +62,42 @@
         </ul>
       </div>
       <div id="content">
-        <h2 class="subTitle">WaveForm</h2>
-        <h4 class="subTitle">Right / Left (Time Domain)</h4>
-        <div class = "CanvasWrapper">
-          <canvas height="100" width="800"></canvas>   
-        </div>
-        <div class = "CanvasWrapper">
-          <canvas height="100" width="800"></canvas>
-        </div>
         
-        <h4 class="subTitle">Time Domain / Freqency Domain</h4>
-        <div class = "CanvasWrapper">
-          <canvas height="175" width="400"></canvas>
-          <canvas height="175" width="400"></canvas>
-        </div>
-        <h2 class="subTitle">Spectrogram</h2>
-        <div class = "CanvasWrapper">
-          <div id = "spectrogramWrapper">
-            <canvas height="500" width="5000"></canvas>
-          </div>
-        </div>
-        <h2 class="subTitle">Visualize</h2>
-        <div class = "CanvasWrapper">
-          <canvas height="700" width="700"></canvas>
-        </div>
+        <ul class="contentTab">
+          <li class="active">Wave Form</li>
+          <li>Spectrogram</li>
+          <li>Visualizer</li>
+        </ul>
+        <ul class="tabCanvas">
+          <li>
+            <h4 class="subTitle">Right / Left (Time Domain)</h4>
+            <div class = "CanvasWrapper">
+              <canvas height="100" width="800"></canvas>   
+            </div>
+            <div class = "CanvasWrapper">
+              <canvas height="100" width="800"></canvas>
+            </div>
+        
+            <h4 class="subTitle">Time Domain / Freqency Domain</h4>
+            <div class = "CanvasWrapper">
+              <canvas height="175" width="400"></canvas>
+              <canvas height="175" width="400"></canvas>
+            </div>
+          </li>
+          <li class="hide">
+            <div class = "CanvasWrapper">
+              <div id = "spectrogramWrapper">
+                <canvas height="500" width="5000"></canvas>
+              </div>
+            </div>
+          </li>
+          <li class="hide">
+            <div class = "CanvasWrapper">
+              <canvas height="700" width="700"></canvas>
+            </div>
+            
+          </li>
+        </ul>
       </div>      
     </div>
   </div>
