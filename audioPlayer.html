@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="audioPlayer" />
+    <meta name="viewport" content="initial-scale = 0.9" />
+    <!-- スマホ対応 http://www.tagindex.com/html5/page/meta_viewport.html -->
+    <title>AudioPlayer</title>
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    
+    <script type="text/javascript" src="scripts/audioPlayer.js"></script>
+    <script type="text/javascript" src="scripts/readTabText.js"></script>
+    <link rel="stylesheet" href="styles/index.css" />
+</head>
+<body onload="init()">
+    <div id="button">
+        <p>
+            音楽を選択：<input type="file" id="fileUploadAudio" value="Choose File" accept="audio/*" onchange = "handleFiles(this.files)">
+        </p>
+        <p>
+            グルーピング構造：<input type="file" id="fileUploadText" value="Choose File" accept="text/*" onchange = "parseTabText(this.files)">
+        </p>
+        <audio id="sound" controls loop>
+            <source src = "">
+        </audio>
+        
+        <input type="button" id="playButton" value="PLAY" onclick="playSound();">
+        <input type="button" id="pauseButton" value="PAUSE" onclick="pauseSound();">
+        <input type="button" id="resetButton" value="RESET" onclick="resetSound();">
+        
+        <form name="selbox">
+        <p>Play Segment</p>
+        <select name="segment" onChange="segmentPlay()">
+            <option value="">Segment</option>
+        </select>
+        </form>
+        
+    </div>
+</body>
+</html>
