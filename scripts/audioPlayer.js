@@ -1,6 +1,9 @@
 var audio;
 function init()
 {
+    $(document).ready(function() {
+    $('select').material_select();
+});
     audio = document.getElementById("sound");
 }
 

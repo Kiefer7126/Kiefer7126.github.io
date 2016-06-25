@@ -29,12 +29,21 @@ function segmentSet()
 {
   for ( i=1; i<startTime.length; i++ )
   {
-      document.selbox.segment.options[i] = new Option(startTime[i]);
+      $('#segment').append('<option value="' + startTime[i] + '">' + startTime[i] + '</option>');
+      
+    $(document).ready(function() {
+    $('select').material_select();
+});
+//      document.selbox.segment.options[i] = new Option(startTime[i]);
   }
 }
 
 function segmentPlay()
 {
-    var select = document.forms.selbox.segment; 
-    goSound(select.options[select.selectedIndex].value);
+    var val = $('#segment').val();
+    console.log("val");
+    goSound(val);
+
+//    var select = document.forms.selbox.segment; 
+//    goSound(select.options[select.selectedIndex].value);
 }
