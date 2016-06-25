@@ -1,3 +1,4 @@
+
 var audio;
 function init()
 {
@@ -10,11 +11,13 @@ function init()
 function playSound()
 {
     audio.play();
+    console.log("play");
 }
 
 function pauseSound()
 {
     audio.pause();
+    console.log("pause");
 }
 
 function goSound(msec)
@@ -26,6 +29,7 @@ function resetSound()
 {
     audio.pause();
     audio.currentTime = 0;
+    console.log("reset");
 }
 
 function handleFiles(file)
