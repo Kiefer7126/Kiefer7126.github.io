@@ -4,6 +4,13 @@ function init()
 {
     $(document).ready(function() {
     $('select').material_select();
+        
+    
+    $(document).ready(function(){
+    $('.slider').slider({full_width: true});
+    });
+        
+        
 });
     audio = document.getElementById("sound");
 }
