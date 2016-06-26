@@ -22,6 +22,11 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
 <!--        <h3>Metrical Structure</h3>-->
+     
+<!--                   -->
+<!-- GroupingStructure -->
+<!--                   -->
+        
         <h3>Grouping Structure</h3>
         <h5>Select File</h5>
         <div class="row">
@@ -70,51 +75,57 @@
                     <option value="" disabled selected>Choose Segment</option>
                 </select>
                 <label>Segment Time</label>
-            </div>              
-            <h3>Time-span Reduction</h3>
-            
-            
-              <div class="slider">
-    <ul class="slides">
-      <li>
-        <img src="image/1spect.png">
-        <div class="caption center-align">
-          <h3>Original</h3>
-          <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
-            <audio id="tsSound1" controls>
-                <source src = "sounds/1.wav">
-            </audio>
+            </div>   
         </div>
-      </li>
-      <li>
-        <img src="image/2spect.png"> 
-        <div class="caption left-align">
-          <h3>Reduction Level 1</h3>
-          <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
-        <audio id="tsSound2" controls>
-                <source src = "sounds/2.wav">
-        </audio>
+        
+<!--                     -->
+<!-- Time-span Reduction -->
+<!--                     -->
+        
+            <h3>Time-span Reduction</h3> 
+            <div class="slider">
+                <ul class="slides">
+                    <li>
+                        <img src="image/1spect.png">
+                        <div class="caption center-align">
+                            <h3>Original</h3>
+                            <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                            <audio id="tsSound1" controls>
+                                <source src = "sounds/1.wav">
+                            </audio>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="image/2spect.png"> 
+                        <div class="caption left-align">
+                            <h3>Reduction Level 1</h3>
+                            <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                            <audio id="tsSound2" controls>
+                                <source src = "sounds/2.wav">
+                            </audio>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="image/3spect.png">
+                        <div class="caption right-align">
+                            <h3>Reduction Level 2</h3>
+                            <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                            <audio id="tsSound3" controls>
+                                <source src = "sounds/3.wav">
+                            </audio>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        
+        <h3>発表論文</h3>
+        <h5>国内会議論文（査読なし）</h5>
+        <li>
+            澤田 隼, 竹川 佳成, 平田 圭二: 音楽音響信号を対象とするGTTM的アプローチによるグルーピング構造の抽出について, 情報処理学会 音楽情報科学研究会, 2016-MUS-111 (2016)
+        </li>
+        <li>
+            澤田隼, 竹川佳成, 平田圭二: 音楽音響信号からのグルーピング構造の獲得へ向けて, ヒューマンインタフェースシンポジウム論文集, 2519D (2015).
+        </li>
         </div>
-      </li>
-      <li>
-        <img src="image/3spect.png">
-        <div class="caption right-align">
-          <h3>Reduction Level 2</h3>
-          <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
-                        <audio id="tsSound3" controls>
-                <source src = "sounds/3.wav">
-            </audio>
-        </div>
-      </li>
-    </ul>
-  </div>
-      
-            
-            
-            
-
-
-        </div>
-    </div>
-</body>
+    </body>
 </html>
