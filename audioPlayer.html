@@ -19,80 +19,83 @@
 </head>
 <body onload="init()">
     <div class="container">
-        <div class="row">
-            <h1>PASTTA</h1>
-            <p>Polyphonic Acoustic Signal Time-span Tree Analyzer</p>   
+        <h1>PASTTA</h1>
+<p>Polyphonic Acoustic Signal Time-span Tree Analyzer</p>  
 <!--                   -->
 <!-- GroupingStructure -->
 <!--                   -->
-        <h3 class="blue-text text-darken-4">Grouping Structure</h3>
-        <h5>Select File</h5>
-        <div class = "col s12">
-            <form action="#">
-                <div class="file-field input-field col s6">
-                    <div class="btn">
-                        <span>Music</span>
-                        <input type="file" id="fileUploadAudio" accept="audio/*" onchange = "handleFiles(this.files)">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Upload file">
-                    </div>
-                </div>
-            </form>
-            <form action="#">
-                <div class="file-field input-field col s6">
-                    <div class="btn">
-                        <span>Grouping Structure</span>
-                        <input type="file" id="fileUploadAudio" accept="text/*" onchange = "parseTabText(this.files)">
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Upload file">
-                    </div>
-                </div>
-            </form>
-        <audio id="sound">
-            <source src = "">
-        </audio>
-        </div>
-        
-            <h5>Controller</h5>
-            <div class="col s12">
-                <button type="button" class="waves-effect waves-light btn col s1" id="playButton" onclick = "playSound()">
-                    <i class="large material-icons">play_arrow</i>
-                </button>
-                <button type="button" class="waves-effect waves-light btn col s1" id="pauseButton" onclick="pauseSound()">
-                    <i class="large material-icons">pause</i>
-                </button>
-                <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="resetSound()">
-                    <i class="large material-icons">stop</i>
-                </button>
-            
-            </div>
-            <div class = "col s12">
-                <div class="input-field col s3">
-                    <select id = "segment" onChange="segmentPlay()">
-                        <option value="" disabled selected>Choose Segment</option>
-                    </select>               
-                </div> 
-                <div class = "col s9">
+        <div class = "section">
+            <h3 class="blue-text text-darken-4 header">Grouping Structure</h3>
+            <h5>Select File</h5>
+            <div class="row">
                     <form action="#">
-                        <p class="range-field">
+                        <div class="file-field input-field col s6">
+                            <div class="btn">
+                                <span>Music</span>
+                                <input type="file" id="fileUploadAudio" accept="audio/*" onchange = "handleFiles(this.files)">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload file">
+                            </div>
+                        </div>
+                    </form>
+                    <form action="#">
+                        <div class="file-field input-field col s6">
+                            <div class="btn">
+                                <span>Grouping Structure</span>
+                                <input type="file" id="fileUploadAudio" accept="text/*" onchange = "parseTabText(this.files)">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload file">
+                            </div>
+                        </div>
+                    </form>
+                    <audio id="sound">
+                        <source src = "">
+                    </audio>
+                </div>
+            <h5>Controller</h5>
+            <div class="row">
+                   <div class="col s12">
+                       <button type="button" class="waves-effect waves-light btn col s1" id="playButton" onclick = "playSound()">
+                           <i class="large material-icons">play_arrow</i>
+                    </button>
+                       <button type="button" class="waves-effect waves-light btn col s1" id="pauseButton" onclick="pauseSound()">
+                          <i class="large material-icons">pause</i>
+                      </button>
+                      <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="resetSound()">
+                           <i class="large material-icons">stop</i>
+                     </button>
+                 
+                  </div>
+                   <div class = "col s12">
+                       <div class="input-field col s3">
+                           <select id = "segment" onChange="segmentPlay()">
+                               <option value="" disabled selected>Choose Segment</option>
+                           </select>               
+                       </div> 
+                      <div class = "col s9">
+                        <form action="#">
+                              <p class="range-field">
                             <label>Dendrogram Level Bar</label>
                             <input type="range" id="dendrogramBar" min="0" max="100" />
                         </p>
                     </form>
                 </div>
             </div>
+                </div>
             <h5>Dendrogram</h5>
-            <div class = "canvas col s12">
-                <canvas id="dendrogramCanvas" width="800" height="500"></canvas>
+            <div class="row">
+                <div class = "canvas col s12">
+                <canvas id="dendrogramCanvas" width="1000" height="500" class = "col s12"></canvas>
             </div>
-        
+            </div>
+        </div>
 <!--                     -->
 <!-- Time-span Reduction -->
 <!--                     -->
-        
-            <h3 class="blue-text text-darken-4">Time-span Reduction</h3> 
+        <div class = "section">
+            <h3 class="blue-text text-darken-4 header">Time-span Reduction</h3> 
             <div class="slider">
                 <ul class="slides">
                     <li>
@@ -127,15 +130,21 @@
                     </li>
                 </ul>
             </div>
-        <h3 class="blue-text text-darken-4">発表論文</h3>
-        <h5>国内会議論文（査読なし）</h5>
-        <li>
+        </div>
+        
+<!--                     -->
+<!--        Papers       -->
+<!--                     -->
+        <div class = "section">
+            <h3 class="blue-text text-darken-4">発表論文</h3>
+            <h5>国内会議論文（査読なし）</h5>
+            <li>
             澤田 隼, 竹川 佳成, 平田 圭二: 音楽音響信号を対象とするGTTM的アプローチによるグルーピング構造の抽出について, 情報処理学会 音楽情報科学研究会, 2016-MUS-111 (2016) <span class="pink-text text-darken-2">学生奨励賞</span>            
-        </li>
-        <li>
+            </li>
+            <li>
             澤田隼, 竹川佳成, 平田圭二: 音楽音響信号からのグルーピング構造の獲得へ向けて, ヒューマンインタフェースシンポジウム論文集, 2519D (2015).
-        </li>
+            </li>
         </div>
     </div>
-    </body>
+</body>
 </html>
