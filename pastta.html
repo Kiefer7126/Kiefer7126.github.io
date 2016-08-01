@@ -39,11 +39,11 @@
                             </div>
                         </div>
                     </form>
-                    <form action="#">
+                <form action="#">
                         <div class="file-field input-field col s6">
                             <div class="btn">
-                                <span>Grouping Structure</span>
-                                <input type="file" id="fileUploadAudio" accept="text/*" onchange = "parseTabText(this.files)">
+                                <span>Beat Structure</span>
+                                <input type="file" id="fileUploadAudio" accept="text/*" onchange = "parseBeatText(this.files)">
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text" placeholder="Upload file">
@@ -54,6 +54,30 @@
                         <source src = "">
                     </audio>
                 </div>
+            <div class="row">
+            <form action="#">
+                        <div class="file-field input-field col s6">
+                            <div class="btn">
+                                <span>System output</span>
+                                <input type="file" id="fileUploadAudio" accept="text/*" onchange = "parseLfText(this.files)">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload file">
+                            </div>
+                        </div>
+                    </form>
+                <form action="#">
+                        <div class="file-field input-field col s6">
+                            <div class="btn">
+                                <span>Ground truth</span>
+                                <input type="file" id="fileUploadAudio" accept="text/*" onchange = "parseTabText(this.files)">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" placeholder="Upload file">
+                            </div>
+                        </div>
+                    </form>
+            </div>
             <h5>Controller</h5>
             <div class="row">
                    <div class="col s12">
@@ -78,16 +102,18 @@
                         <form action="#">
                               <p class="range-field">
                             <label>Dendrogram Level Bar</label>
-                            <input type="range" id="dendrogramBar" min="0" max="100" />
+                            <input type="range" id="dendrogramBar" min="0" max="90" />
                         </p>
                     </form>
                 </div>
             </div>
                 </div>
-            <h5>Dendrogram</h5>
+            <h5>Grouping structure</h5>
             <div class="row">
                 <div class = "canvas col s12">
-                <canvas id="dendrogramCanvas" width="1000" height="500" class = "col s12"></canvas>
+                    <canvas id="dendrogramCanvas" width="1000" height="200"></canvas>
+<!--                <canvas id="dendrogramCanvas" width="1000" height="200" class = "col s12"></canvas> -->
+                    <canvas id="chorusCanvas" width="1000" height="200"></canvas>
             </div>
             </div>
         </div>
@@ -135,6 +161,7 @@
 <!--                     -->
 <!--        Papers       -->
 <!--                     -->
+        <!--
         <div class = "section">
             <h3 class="blue-text text-darken-4">発表論文</h3>
             <h5>国内会議論文（査読なし）</h5>
@@ -146,5 +173,6 @@
             </li>
         </div>
     </div>
+-->
 </body>
 </html>

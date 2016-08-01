@@ -10,6 +10,8 @@ function init()
     $('.slider').slider({full_width: true});
     });
         
+    
+        
         
 });
     audio = document.getElementById("sound");
