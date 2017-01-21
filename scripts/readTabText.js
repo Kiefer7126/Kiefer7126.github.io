@@ -55,8 +55,38 @@ function parseBeatText(file)
             }
         
         beatInterval = beatInterval / 9;
-        //console.log(beatStructure);
+        console.log(beatStructure);
         //console.log(beatInterval);
+    }
+}
+
+function readBeatStructure(json)
+{
+    var reader = new FileReader();
+    beatStructure = reader.readAsText(json[0]);
+    console.log(beatStructure);
+}
+function parseBeat(file)
+{
+    var reader = new FileReader();
+    reader.readAsText(file[0])
+    
+    reader.onload = function(ev)
+    {
+        var rawText = reader.result;   
+        var LF = String.fromCharCode(10); // 改行コード (LF)
+        var lineData = rawText.split(LF);
+        //beatStructure = new Array();
+        beat = [];
+        
+        //曲の長さコーパスにを入れておく
+        
+        for (var i=0; i < lineData.length - 1; i++)
+        {            
+            beatStructure.beat[beat.length] = lineData[i];
+        }
+        
+        console.log(beatStructure.beat);
     }
 }
 
