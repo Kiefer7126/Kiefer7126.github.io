@@ -245,7 +245,21 @@ function drawBeatCanvas() {
 
     drawSeekBar(x);
     drawBeat();
+    drawBeatCandidate();
     drawBeatCircle();
+}
+
+function drawBeatCandidate() {
+    if (beatStructure.beat.length > 1) {
+        xpoint = (2 * beatStructure.beat[beatStructure.beat.length-1] - beatStructure.beat[beatStructure.beat.length-2])
+        ctx3.beginPath();
+        ctx3.strokeStyle = 'rgb(140, 170, 192)'; // 灰色
+        ctx3.moveTo(xpoint, 0);
+        ctx3.lineTo(xpoint, 0);
+        ctx3.lineTo(xpoint, canvas3.height);
+        ctx3.stroke();
+    }
+
 }
 
 function drawGroupingCanvas() {
