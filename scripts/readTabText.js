@@ -62,10 +62,18 @@ function parseBeatText(file)
 
 function readBeatStructure(json)
 {
+    clearBeat();
     var reader = new FileReader();
-    beatStructure = reader.readAsText(json[0]);
-    console.log(beatStructure);
+    reader.readAsText(json[0]);
+    
+    reader.onload = function(ev){
+    
+        console.log(reader.result);
+        beatStructure = JSON.parse(reader.result);
+        console.log(beatStructure);
+    }
 }
+
 function parseBeat(file)
 {
     var reader = new FileReader();

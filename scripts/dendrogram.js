@@ -9,10 +9,12 @@ var sortGroup;
 var systemStep;
 var beatInterval = 45;
 var beatindex = 0;
+
 var beatStructure = {
     duration: 0,
     beat: []
 };
+
 var groupingStructure = {
     hierarchy: 1,
     grouping: []
