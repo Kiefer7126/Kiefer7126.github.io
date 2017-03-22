@@ -77,6 +77,9 @@ function readBeatStructure(json)
 
             beatStructure["beat"][i] = Math.round((beatStructure["beat"][i] * v) / 100);
         }
+        
+        //全てのオンセットを最下層のグルーピング構造のヘッドにする必要がある
+        groupingHead[0] = beatStructure.beat; 
     }
         
 }
