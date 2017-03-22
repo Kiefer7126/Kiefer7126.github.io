@@ -70,8 +70,15 @@ function readBeatStructure(json)
     
         console.log(reader.result);
         beatStructure = JSON.parse(reader.result);
-        console.log(beatStructure);
+        
+        var v = canvas3.width / beatStructure["audioduration"];
+
+        for (var i = 0; i < beatStructure["beat"].length; i++) {
+
+            beatStructure["beat"][i] = Math.round((beatStructure["beat"][i] * v) / 100);
+        }
     }
+        
 }
 
 function parseBeat(file)

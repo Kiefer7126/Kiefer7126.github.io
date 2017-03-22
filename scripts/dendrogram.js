@@ -496,6 +496,7 @@ function convertToText(array) {
     return content;
 }
 
+
 function exportBeat() {
 
     beatStructure.duration = audio.duration;
