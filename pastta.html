@@ -27,6 +27,12 @@
             color: #FFFFFF;
             text-decoration: none;
         }
+        
+        .canvasWrapper{
+            padding: 0px;
+            height: 100%;
+            overflow: scroll;
+        }
     </style>
 
 </head>
@@ -37,194 +43,225 @@
             <div class="nav-wrapper">
                 <a href="#!" class="brand-logo center">PASTTA</a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="#" onclick = "playSound(); return false;" ><i class="large material-icons">play_arrow</i></a></li>
-                    <li><a href="#" onclick = "pauseSound(); return false;" ><i class="material-icons">pause</i></a></li>
-                    <li><a href="#" onclick = "resetSound(); return false;" ><i class="material-icons">stop</i></a></li>
-                    <li><a href="#" onclick = "backSound(); return false;" ><i class="material-icons">replay_10</i></a></li>
+                    <li><a href="#" onclick="playSound(); return false;"><i class="large material-icons">play_arrow</i></a></li>
+                    <li><a href="#" onclick="pauseSound(); return false;"><i class="material-icons">pause</i></a></li>
+                    <li><a href="#" onclick="resetSound(); return false;"><i class="material-icons">stop</i></a></li>
+                    <li><a href="#" onclick="backSound(); return false;"><i class="material-icons">replay_10</i></a></li>
                 </ul>
             </div>
         </nav>
     </div>
     <div class="container">
-        <h1>PASTTA</h1>
-        <p>Polyphonic Acoustic Signal Time-span Tree Analyzer</p>
         <!--                   -->
         <!-- GroupingStructure -->
         <!--                   -->
         <div class="section">
             <h3 class="blue-text text-darken-4 header">Grouping Structure</h3>
-            <h5>Select File</h5>
             <div class="row">
-                <form action="#">
-                    <div class="file-field input-field col s6">
-                        <div class="btn">
-                            <span>Music</span>
-                            <input type="file" id="fileUploadAudio" accept="audio/*" onchange="handleFiles(this.files)">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Upload file">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Select File</span>
+                            <div class="row">
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>Music</span>
+                                            <input type="file" id="fileUploadAudio" accept="audio/*" onchange="handleFiles(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>Beat Structure</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="readBeatStructure(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                                <audio id="sound">
+                                    <source src="">
+                                </audio>
+                            </div>
+                            <div class="row">
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>System output</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseLfText(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>Ground truth</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseTabText(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </form>
-                <form action="#">
-                    <div class="file-field input-field col s6">
-                        <div class="btn">
-                            <span>Beat Structure</span>
-                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="readBeatStructure(this.files)">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Upload file">
-                        </div>
-                    </div>
-                </form>
-                <audio id="sound">
-                    <source src="">
-                </audio>
-            </div>
-            <div class="row">
-                <form action="#">
-                    <div class="file-field input-field col s6">
-                        <div class="btn">
-                            <span>System output</span>
-                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseLfText(this.files)">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Upload file">
-                        </div>
-                    </div>
-                </form>
-                <form action="#">
-                    <div class="file-field input-field col s6">
-                        <div class="btn">
-                            <span>Ground truth</span>
-                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseTabText(this.files)">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text" placeholder="Upload file">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <h5>Controller</h5>
-            <div class="row">
-                <div class="col s12">
-                    <button type="button" class="waves-effect waves-light btn col s1" id="playButton" onclick="playSound()">
-                        <i class="large material-icons">play_arrow</i>
-                    </button>
-                    <button type="button" class="waves-effect waves-light btn col s1" id="pauseButton" onclick="pauseSound()">
-                        <i class="large material-icons">pause</i>
-                    </button>
-                    <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="resetSound()">
-                        <i class="large material-icons">stop</i>
-                    </button>
-                    <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="backSound()">
-                        <i class="large material-icons">replay_10</i>
-                    </button>
 
-                </div>
-                <div class="col s12">
-                    <div class="input-field col s3">
-                        <select id="segment" onChange="segmentPlay()">
-                            <option value="" disabled selected>Choose Segment</option>
-                        </select>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Controller</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="playButton" onclick="playSound()">
+                                        <i class="large material-icons">play_arrow</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="pauseButton" onclick="pauseSound()">
+                                        <i class="large material-icons">pause</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="resetSound()">
+                                        <i class="large material-icons">stop</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="backSound()">
+                                        <i class="large material-icons">replay_10</i>
+                                    </button>
+
+                                </div>
+                                <div class="col s12">
+                                    <div class="input-field col s3">
+                                        <select id="segment" onChange="segmentPlay()">
+                                            <option value="" disabled selected>Choose Segment</option>
+                                        </select>
+                                    </div>
+                                    <div class="col s9">
+                                        <form action="#">
+                                            <p class="range-field">
+                                                <label>Dendrogram Level Bar</label>
+                                                <input type="range" id="dendrogramBar" min="0" max="90" />
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col s9">
-                        <form action="#">
-                            <p class="range-field">
-                                <label>Dendrogram Level Bar</label>
-                                <input type="range" id="dendrogramBar" min="0" max="90" />
-                            </p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <h5>Beat structure</h5>
-            <div class="row">
-                <div class="col s12">
-                    <button type="button" class="waves-effect waves-light btn col s1" id="inputBeat" onclick="inputBeat()">
-                        <i class="large material-icons">input</i>
-                    </button>
-                    <button type="button" class="waves-effect waves-light btn col s1" id="clearBeat" onclick="clearBeat()">
-                        <i class="large material-icons">delete</i>
-                    </button>
-                    <div class="btn">
-                        <span>
+
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Beat structure</span>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <button type="button" class="waves-effect waves-light btn col s1" id="inputBeat" onclick="inputBeat()">
+                                            <i class="large material-icons">input</i>
+                                        </button>
+                                        <button type="button" class="waves-effect waves-light btn col s1" id="clearBeat" onclick="clearBeat()">
+                                            <i class="large material-icons">delete</i>
+                                        </button>
+                                        <div class="btn">
+                                            <span>
                     <a id="download" href="#" download = "beat.txt"  onclick="exportBeat()">Download</a>
                          </span>
-                    </div>
-                </div>
-                <div class="canvas col s12">
-                    <canvas id="audioCanvas" width="1000" height="100"></canvas>
-                </div>
-            </div>
-            <h5>Grouping structure</h5>
-            <div class="row">
-                <div class="col s12">
-                    <button type="button" class="waves-effect waves-light btn col s1" id="splitCanvas" onclick="splitCanvas()">
-                        <i class="large material-icons">done</i>
-                    </button>
-                    <button type="button" class="waves-effect waves-light btn col s1" id="clearGrouping" onclick="clearGrouping()">
-                        <i class="large material-icons">delete</i>
-                    </button>
-                    <div class="btn">
-                        <span>
+                                        </div>
+                                    </div>
+                                    <div class="canvas col s12">
+                                        <div class = "canvasWrapper">
+                                        <canvas id="audioCanvas" width="5000" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Grouping structure</span>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <button type="button" class="waves-effect waves-light btn col s1" id="splitCanvas" onclick="splitCanvas()">
+                                            <i class="large material-icons">done</i>
+                                        </button>
+                                        <button type="button" class="waves-effect waves-light btn col s1" id="clearGrouping" onclick="clearGrouping()">
+                                            <i class="large material-icons">delete</i>
+                                        </button>
+                                        <div class="btn">
+                                            <span>
                     <a id="downloadGrouping" href="#" download = "group.txt"  onclick="exportGrouping()">Download</a>
                          </span>
+                                        </div>
+                                    </div>
+                                    <div class="canvas col s12">
+                                        <div class = "canvasWrapper">
+                                        <canvas id="groupingCanvas" width="5000" height="500"></canvas>
+                                    </div>
+
+                                        <canvas id="dendrogramCanvas" width="0" height="0"></canvas>
+                                        <!--                <canvas id="dendrogramCanvas" width="1000" height="200" class = "col s12"></canvas> -->
+                                        <canvas id="chorusCanvas" width="0" height="0"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--                     -->
+                        <!-- Time-span Reduction -->
+                        <!--                     -->
+                        <div class="section">
+                            <h3 class="blue-text text-darken-4 header">Time-span Reduction</h3>
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Demo</span>
+                                
+                                <div class="slider">
+                                    <ul class="slides">
+                                        <li>
+                                            <img src="image/1spect.png">
+                                            <div class="caption center-align">
+                                                <h3>Original</h3>
+                                                <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                                                <audio id="tsSound1" controls>
+                                                    <source src="sounds/1.wav">
+                                                </audio>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="image/2spect.png">
+                                            <div class="caption left-align">
+                                                <h3>Reduction Level 1</h3>
+                                                <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                                                <audio id="tsSound2" controls>
+                                                    <source src="sounds/2.wav">
+                                                </audio>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="image/3spect.png">
+                                            <div class="caption right-align">
+                                                <h3>Reduction Level 2</h3>
+                                                <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                                                <audio id="tsSound3" controls>
+                                                    <source src="sounds/3.wav">
+                                                </audio>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
-                <div class="canvas col s12">
-                    <canvas id="groupingCanvas" width="1000" height="500"></canvas>
-                    <canvas id="dendrogramCanvas" width="1000" height="200"></canvas>
-                    <!--                <canvas id="dendrogramCanvas" width="1000" height="200" class = "col s12"></canvas> -->
-                    <canvas id="chorusCanvas" width="1000" height="200"></canvas>
-                </div>
-            </div>
-        </div>
-        <!--                     -->
-        <!-- Time-span Reduction -->
-        <!--                     -->
-        <div class="section">
-            <h3 class="blue-text text-darken-4 header">Time-span Reduction</h3>
-            <div class="slider">
-                <ul class="slides">
-                    <li>
-                        <img src="image/1spect.png">
-                        <div class="caption center-align">
-                            <h3>Original</h3>
-                            <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
-                            <audio id="tsSound1" controls>
-                                <source src="sounds/1.wav">
-                            </audio>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="image/2spect.png">
-                        <div class="caption left-align">
-                            <h3>Reduction Level 1</h3>
-                            <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
-                            <audio id="tsSound2" controls>
-                                <source src="sounds/2.wav">
-                            </audio>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="image/3spect.png">
-                        <div class="caption right-align">
-                            <h3>Reduction Level 2</h3>
-                            <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
-                            <audio id="tsSound3" controls>
-                                <source src="sounds/3.wav">
-                            </audio>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!--                     -->
-        <!--        Papers       -->
-        <!--                     -->
-        <!--
+                <!--                     -->
+                <!--        Papers       -->
+                <!--                     -->
+                <!--
         <div class = "section">
             <h3 class="blue-text text-darken-4">発表論文</h3>
             <h5>国内会議論文（査読なし）</h5>
@@ -238,9 +275,9 @@
     </div>
 -->
 
-        <audio id="clickBeat" preload="auto">
-            <source src="sounds/pi.wav" type="audio/wav">
-        </audio>
+                <audio id="clickBeat" preload="auto">
+                    <source src="sounds/pi.wav" type="audio/wav">
+                </audio>
 
 </body>
 
