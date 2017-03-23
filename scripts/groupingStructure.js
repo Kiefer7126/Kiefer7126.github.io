@@ -19,7 +19,7 @@ var groupingHead = [];
 var groupingHead_ms = [];
 
 function drawGroupingCanvas() {
-    ctx4.fillStyle = "rgb(240,255,255)";
+    ctx4.fillStyle = "rgb(0,0,0)";
     ctx4.fillRect(0, 0, canvas4.width, canvas4.height);
     drawBeatStructure(ctx4, "group", canvas4.height);
     drawGroupingCircles(ctx4, "group", canvas4.height);
@@ -45,7 +45,7 @@ function drawGroupingCircles(context, flag, canvasHeight) {
                 y = canvasHeight / hierarchyNum;
             }
             context.beginPath();
-            context.fillStyle = 'rgb(180, 180, 180)';
+            context.fillStyle = 'rgb(80, 80, 80)';
             context.arc(beatStructure.beat[i], 10 + y * j, 10, 0, Math.PI * 2, true);
             context.fill();
         }
@@ -59,7 +59,7 @@ function drawGroupingIndex() {
 
     for (var i = 0; i < groupingBoundary.length; i++) {
         ctx4.beginPath();
-        ctx4.fillStyle = 'rgb(80, 50, 180)';
+        ctx4.fillStyle = 'rgb(80, 130, 230)';
         ctx4.arc(groupingBoundary[i], 10 + canvas4.height - strictY, 10, 0, Math.PI * 2, true);
         ctx4.fill();
     }
@@ -71,7 +71,7 @@ function drawGroupingStructure(context, canvasHeight) {
         for (var j = 0; j < groupingHead[i].length; j++) {
             //y = canvasHeight / (groupingHead.length-1)
             context.beginPath();
-            context.fillStyle = 'rgb(80, 50, 180)';
+            context.fillStyle = 'rgb(80, 130, 230)';
             context.arc(groupingHead[i][j], 10 + y * (i - 1), 10, 0, Math.PI * 2, true);
             context.fill();
         }

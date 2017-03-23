@@ -28,7 +28,7 @@
             text-decoration: none;
         }
         
-        .canvasWrapper{
+        .canvasWrapper {
             padding: 0px;
             height: 100%;
             overflow: scroll;
@@ -154,71 +154,71 @@
                         </div>
                     </div>
 
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Beat structure</span>
-                                <div class="row">
-                                    <div class="col s12">
-                                        <button type="button" class="waves-effect waves-light btn col s1" id="inputBeat" onclick="inputBeat()">
-                                            <i class="large material-icons">input</i>
-                                        </button>
-                                        <button type="button" class="waves-effect waves-light btn col s1" id="clearBeat" onclick="clearBeat()">
-                                            <i class="large material-icons">delete</i>
-                                        </button>
-                                        <div class="btn">
-                                            <span>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Beat structure</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="inputBeat" onclick="inputBeat()">
+                                        <i class="large material-icons">input</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="clearBeat" onclick="clearBeat()">
+                                        <i class="large material-icons">delete</i>
+                                    </button>
+                                    <div class="btn">
+                                        <span>
                     <a id="download" href="#" download = "beat.txt"  onclick="exportBeat()">Download</a>
                          </span>
-                                        </div>
                                     </div>
-                                    <div class="canvas col s12">
-                                        <div class = "canvasWrapper">
+                                </div>
+                                <div class="canvas col s12">
+                                    <div class="canvasWrapper">
                                         <canvas id="audioCanvas" width="5000" height="100"></canvas>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="card">
-                            <div class="card-content">
-                                <span class="card-title">Grouping structure</span>
-                                <div class="row">
-                                    <div class="col s12">
-                                        <button type="button" class="waves-effect waves-light btn col s1" id="splitCanvas" onclick="splitCanvas()">
-                                            <i class="large material-icons">done</i>
-                                        </button>
-                                        <button type="button" class="waves-effect waves-light btn col s1" id="clearGrouping" onclick="clearGrouping()">
-                                            <i class="large material-icons">delete</i>
-                                        </button>
-                                        <div class="btn">
-                                            <span>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Grouping structure</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="splitCanvas" onclick="splitCanvas()">
+                                        <i class="large material-icons">done</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="clearGrouping" onclick="clearGrouping()">
+                                        <i class="large material-icons">delete</i>
+                                    </button>
+                                    <div class="btn">
+                                        <span>
                     <a id="downloadGrouping" href="#" download = "group.txt"  onclick="exportGrouping()">Download</a>
                          </span>
-                                        </div>
                                     </div>
-                                    <div class="canvas col s12">
-                                        <div class = "canvasWrapper">
-                                        <canvas id="groupingCanvas" width="5000" height="500"></canvas>
+                                </div>
+                                <div class="canvas col s12">
+                                    <div class="canvasWrapper">
+                                        <canvas id="groupingCanvas" width="5000" height="300"></canvas>
                                     </div>
 
-                                        <canvas id="dendrogramCanvas" width="0" height="0"></canvas>
-                                        <!--                <canvas id="dendrogramCanvas" width="1000" height="200" class = "col s12"></canvas> -->
-                                        <canvas id="chorusCanvas" width="0" height="0"></canvas>
-                                    </div>
+                                    <canvas id="dendrogramCanvas" width="0" height="0"></canvas>
+                                    <!--                <canvas id="dendrogramCanvas" width="1000" height="200" class = "col s12"></canvas> -->
+                                    <canvas id="chorusCanvas" width="0" height="0"></canvas>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!--                     -->
-                        <!-- Time-span Reduction -->
-                        <!--                     -->
-                        <div class="section">
-                            <h3 class="blue-text text-darken-4 header">Time-span Reduction</h3>
+                    <!--                     -->
+                    <!-- Time-span Reduction -->
+                    <!--                     -->
+                    <div class="section">
+                        <h3 class="blue-text text-darken-4 header">Time-span Reduction</h3>
                         <div class="card">
                             <div class="card-content">
                                 <span class="card-title">Demo</span>
-                                
+
                                 <div class="slider">
                                     <ul class="slides">
                                         <li>
@@ -256,12 +256,12 @@
                             </div>
                         </div>
                     </div>
-                    </div>
                 </div>
-                <!--                     -->
-                <!--        Papers       -->
-                <!--                     -->
-                <!--
+            </div>
+            <!--                     -->
+            <!--        Papers       -->
+            <!--                     -->
+            <!--
         <div class = "section">
             <h3 class="blue-text text-darken-4">発表論文</h3>
             <h5>国内会議論文（査読なし）</h5>
@@ -275,9 +275,9 @@
     </div>
 -->
 
-                <audio id="clickBeat" preload="auto">
-                    <source src="sounds/pi.wav" type="audio/wav">
-                </audio>
+            <audio id="clickBeat" preload="auto">
+                <source src="sounds/pi.wav" type="audio/wav">
+            </audio>
 
 </body>
 

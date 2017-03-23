@@ -12,7 +12,7 @@ function drawBeatCanvas() {
 
     playClick(x, velocity);
 
-    ctx3.fillStyle = "rgb(240,255,255)";
+    ctx3.fillStyle = "rgb(0,0,0)";
     ctx3.fillRect(0, 0, canvas3.width, canvas3.height);
 
     drawSeekBar(x);
@@ -36,7 +36,7 @@ function drawBeatCandidate() {
 
 function drawSeekBar(x) {
     ctx3.beginPath();
-    ctx3.strokeStyle = 'rgb(192, 80, 77)'; // 赤
+    ctx3.strokeStyle = 'rgb(200, 90, 80)'; // 赤
     ctx3.moveTo(x, 0);
     ctx3.lineTo(x, 0);
     ctx3.lineTo(x, canvas3.height);
@@ -48,7 +48,7 @@ function drawBeatCircle() {
     for (var i = 0; i < beatStructure.beat.length; i++) {
         ctx3.beginPath();
         //ctx3.strokeStyle = 'rgb(80, 77, 192)'; // 青
-        ctx3.fillStyle = 'rgb(192, 77, 192)'; // 赤
+        ctx3.fillStyle = 'rgb(230, 80, 130)'; // 赤
         ctx3.arc(beatStructure.beat[i], 10, 10, 0, Math.PI * 2, true);
         ctx3.fill();
     }
@@ -70,7 +70,7 @@ function clearBeat() {
 function drawBeat() {
     for (var i = 0; i < beatStructure.beat.length; i++) {
         ctx3.beginPath();
-        ctx3.strokeStyle = 'rgb(80, 77, 192)'; // 青
+        ctx3.strokeStyle = 'rgb(50, 204, 18)'; // 青
         ctx3.moveTo(beatStructure.beat[i], 0);
         ctx3.lineTo(beatStructure.beat[i], 0);
         ctx3.lineTo(beatStructure.beat[i], canvas3.height);
