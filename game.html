@@ -1,266 +1,316 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>まもれ</title>
-    <script type="text/javascript">
-      var canvas;
-      var context;
-      var hiscore;
-      var x;
-      var dx;
-      var characterSize;
-      var charState;
-      var objectState;
-      var objectSize;
-      var ms;
-      var objectY;
-      var objectX;
-      var objectDY;
-      var t;
-      var bound;
-      var timer1;
-      var appleArray;
-      var score;
-      var isGameover = true;
-      //var boundAudio = new Audio("./bound.mp3");
-      var damageAudio = new Audio("./damage.mp3");
-      
-      var mouseX = 0;
-      var mouseY = 0;
-      
-      var Apple = function (objectX, objectY)
-      {
-        this.t = 0;
-        this.state = "on";
-        this.objectSize = 0;
-        this.initObjectX = objectX;
-        this.initObjectY = objectY;
-        this.objectX = objectX;
-        this.objectY = objectY;
-        this.bound = 0;
-        this.boundAudio = new Audio("./bound.mp3");
-        this.cutAudio = new Audio("./cut.mp3");
-      }
-      
-      Apple.prototype.move = function()
-      {
-        var random = Math.floor(Math.random()*100);
-          
-        if (this.state == "on")
-        {
-          this.objectSize++;
-          if(random <= this.objectSize / 2 && random >= 10){this.state = "off";}
-          else{this.state = "on";}
-        }
-        
-        if(this.state == "on"){}
-        else if(this.state == "off")
-        {
-          if (this.bound == 5){this.objectY = -100;}
-          else if (this.objectY > 0)
-          {
-            this.t++;
-            this.objectY = this.initObjectY + canvas.height - Math.abs((canvas.height - this.initObjectY - this.t*8) * Math.sin(Math.PI/2 + this.t/5));
-            if (this.objectY > canvas.height - this.objectSize/2)
-            {
-              this.bound++;
-              this.boundAudio.play();
-              score += this.bound * this.bound;
-            }
-          }
-        }
-        
-        context.fillStyle = "#f42";
-        context.beginPath();
-        context.arc(this.objectX, this.objectY, this.objectSize, 0, Math.PI / 180, true);
-        context.fill();
-      }
-      
-      Apple.transition = function(state)
-      {
-        var random = Math.floor(Math.random()*100);
-          
-        if (state == "on")
-        {
-          this.objectSize++;
-          if(random <= this.objectSize / 2 && random >= 10){state = "off";}
-          else{state = "on";}
-        }
-        return state;
-      }
-      
-      function movehandler(event)
-      {
-        mouseX = event.offsetX;
-        mouseY = event.offsetY;
-      }
 
-      window.onmousemove = movehandler;
-      
-      function init()
-      {
-        if(isGameover)
-        {
-          isGameover = false;
-          charState = "stop";
-          objectState = "on";
-          t = 0;
-          ms = 0;
-          objectY = 10;
-          objectX = 400;
-          objectDY = 50;
-          bound = 0;
-          objectSize = 0;
-          dx = 0;
-          characterSize = 30;
-          canvas = document.getElementById("canvas1");
-          context = canvas.getContext("2d");
-          x = canvas.width / 2;
-          timer1 = setInterval(draw, 100);
-          score = 0;
-          apple1 = new Apple(600, 20);
-          appleArray = [];
-      　}
-      }
-      
-      function timer()
-      {
-        ms++;
-        context.font = "25px Century Gothic";
-        context.fillStyle = "#fff";
-        context.fillText("TIME : " + ms,10,30);
-      }
-      
-      function scoreView()
-      {
-        context.font = "25px Century Gothic";
-        context.fillStyle = "#fff";
-        context.fillText("SCORE : " + score,10,60);
-      }
-      
-      function checkHit(objectX, objectY, X, Y, objectSize)
-      {
-        var flag = false;
-        
-        if (objectX - objectSize < X && X < objectX + objectSize && Y < objectY + objectSize && Y > objectY - objectSize){flag = true;}
-        return flag;
-      }
-    
-      function charTransition(state)
-      {
-        var random = Math.floor(Math.random()*10);
-          
-        if (state == "stop")
-        {
-          dx = 0;
-          if(random <= 5){return "stop";}
-          else if (random <= 7){return "right";}
-          else if (random <= 9){return  "left";}
+<head>
+    <title>まもれ</title>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <script type="text/javascript">
+        var canvas;
+        var context;
+        var hiscore;
+        var x;
+        var dx;
+        var characterSize;
+        var charState;
+        var objectState;
+        var objectSize;
+        var ms;
+        var objectY;
+        var objectX;
+        var objectDY;
+        var t;
+        var bound;
+        var timer1;
+        var appleArray;
+        var score;
+        var isGameover = true;
+        //var boundAudio = new Audio("./bound.mp3");
+        var damageAudio = new Audio("./damage.mp3");
+
+        var mouseX = 0;
+        var mouseY = 0;
+
+        var Apple = function (objectX, objectY) {
+            this.t = 0;
+            this.state = "on";
+            this.objectSize = 0;
+            this.initObjectX = objectX;
+            this.initObjectY = objectY;
+            this.objectX = objectX;
+            this.objectY = objectY;
+            this.bound = 0;
+            this.boundAudio = new Audio("./bound.mp3");
+            this.cutAudio = new Audio("./cut.mp3");
         }
-        else if(state == "right")
-        {
-          dx = 5 + ms/100;
-          if(random <= 7){return "right";}
-          else if (random == 8){return "stop";}
-          else if (random == 9){return "left";}
+
+        Apple.prototype.move = function () {
+            var random = Math.floor(Math.random() * 100);
+
+            if (this.state == "on") {
+                this.objectSize++;
+                if (random <= this.objectSize / 2 && random >= 10) {
+                    this.state = "off";
+                } else {
+                    this.state = "on";
+                }
+            }
+
+            if (this.state == "on") {} else if (this.state == "off") {
+                if (this.bound == 5) {
+                    this.objectY = -100;
+                } else if (this.objectY > 0) {
+                    this.t++;
+                    this.objectY = this.initObjectY + canvas.height - Math.abs((canvas.height - this.initObjectY - this.t * 8) * Math.sin(Math.PI / 2 + this.t / 5));
+                    if (this.objectY > canvas.height - this.objectSize / 2) {
+                        this.bound++;
+                        this.boundAudio.play();
+                        score += this.bound * this.bound;
+                    }
+                }
+            }
+
+            context.fillStyle = "#f42";
+            context.beginPath();
+            context.arc(this.objectX, this.objectY, this.objectSize, 0, Math.PI / 180, true);
+            context.fill();
         }
-        else if(state == "left")
-        {
-          dx = -5 - ms /100;
-          if(random <= 7){return "left";}
-          else if (random == 8){return "stop";}
-          else if (random == 9){return "right";}
+
+        Apple.transition = function (state) {
+            var random = Math.floor(Math.random() * 100);
+
+            if (state == "on") {
+                this.objectSize++;
+                if (random <= this.objectSize / 2 && random >= 10) {
+                    state = "off";
+                } else {
+                    state = "on";
+                }
+            }
+            return state;
         }
-      }
-      
-      function gameOver()
-      {
-        damageAudio.play();
-        isGameover = true;
-        clearInterval(timer1);
-        context.font = "70px Century Gothic";
-        context.fillStyle = "#000";
-        context.fillText("GAME OVER", 120, canvas.height/2);
-        context.font = "50px Century Gothic";
-        context.fillStyle = "#111";
-        context.fillText("- CLICK -", 230, canvas.height/2 + 200);
-        context.fillText("SCORE : " + score, 210, canvas.height/2 + 100);
-        document.addEventListener('mousedown', init);
-      }
-      
-      function draw()
-      {
-        context.clearRect(0,0,canvas.width, canvas.height);
-        
-        context.fillStyle = "#093";
-        context.beginPath();
-        context.arc(canvas.width/2, -550 , canvas.width, 0, Math.PI / 180, true);
-        context.fill();
-        context.closePath();
-        
-        context.fillStyle = "#966";
-        context.beginPath();
-        context.moveTo(canvas.width/2 - 25 , 100);
-        context.lineTo(canvas.width/2 + 25 , 100);
-        context.lineTo(canvas.width/2 + 40 , canvas.height);
-        context.lineTo(canvas.width/2 - 40 , canvas.height);
-        context.closePath();
-        context.fill();
-                
-        timer();
-        scoreView();
-        charState = charTransition(charState);
-        console.log("dx = " + dx);
-        x = x + dx;
-        
-        if(x < 0)
-        {
-          x = 0;
-          charState = "right";
+
+        function movehandler(event) {
+            mouseX = event.offsetX;
+            mouseY = event.offsetY;
         }
-        else if(x > canvas.width - characterSize)
-        {
-          x = canvas.width - characterSize;
-          charState = "left";
+
+        window.onmousemove = movehandler;
+
+        function init() {
+            if (isGameover) {
+                isGameover = false;
+                charState = "stop";
+                objectState = "on";
+                t = 0;
+                ms = 0;
+                objectY = 10;
+                objectX = 400;
+                objectDY = 50;
+                bound = 0;
+                objectSize = 0;
+                dx = 0;
+                characterSize = 30;
+                canvas = document.getElementById("canvas1");
+                context = canvas.getContext("2d");
+                x = canvas.width / 2;
+                timer1 = setInterval(draw, 100);
+                score = 0;
+                apple1 = new Apple(600, 20);
+                appleArray = [];　
+            }
         }
-        
-        context.fillStyle = "rgb(128, 128, 255)";
-        context.fillRect(x, canvas.height - characterSize, characterSize, characterSize);        
-        
-        if(Math.floor(Math.random()*10 <= 1))
-        {
-         appleArray[appleArray.length] = new Apple(Math.floor(Math.random()*canvas.width), Math.floor(Math.random()*100) + 1);
+
+        function timer() {
+            ms++;
+            context.font = "25px Century Gothic";
+            context.fillStyle = "#fff";
+            context.fillText("TIME : " + ms, 10, 30);
         }
-        
-        for(var i = 0; i < appleArray.length; i++)
-        {
-          appleArray[i].move();
-          
-          if(checkHit(appleArray[i].objectX, appleArray[i].objectY, x, canvas.height - characterSize, appleArray[i].objectSize) || checkHit(appleArray[i].objectX, appleArray[i].objectY, x + characterSize, canvas.height - characterSize, appleArray[i].objectSize))
-          {
-            gameOver();
-          }
-          
-          if(checkHit(appleArray[i].objectX, appleArray[i].objectY, mouseX, mouseY, appleArray[i].objectSize))
-          {
-            appleArray[i].cutAudio.play();
-            appleArray[i].objectY = -100;
-          }
+
+        function scoreView() {
+            context.font = "25px Century Gothic";
+            context.fillStyle = "#fff";
+            context.fillText("SCORE : " + score, 10, 60);
         }
-      }
+
+        function checkHit(objectX, objectY, X, Y, objectSize) {
+            var flag = false;
+
+            if (objectX - objectSize < X && X < objectX + objectSize && Y < objectY + objectSize && Y > objectY - objectSize) {
+                flag = true;
+            }
+            return flag;
+        }
+
+        function charTransition(state) {
+            var random = Math.floor(Math.random() * 10);
+
+            if (state == "stop") {
+                dx = 0;
+                if (random <= 5) {
+                    return "stop";
+                } else if (random <= 7) {
+                    return "right";
+                } else if (random <= 9) {
+                    return "left";
+                }
+            } else if (state == "right") {
+                dx = 5 + ms / 100;
+                if (random <= 7) {
+                    return "right";
+                } else if (random == 8) {
+                    return "stop";
+                } else if (random == 9) {
+                    return "left";
+                }
+            } else if (state == "left") {
+                dx = -5 - ms / 100;
+                if (random <= 7) {
+                    return "left";
+                } else if (random == 8) {
+                    return "stop";
+                } else if (random == 9) {
+                    return "right";
+                }
+            }
+        }
+
+        function gameOver() {
+            damageAudio.play();
+            isGameover = true;
+            clearInterval(timer1);
+            context.font = "70px Century Gothic";
+            context.fillStyle = "#000";
+            context.fillText("GAME OVER", 120, canvas.height / 2);
+            context.font = "50px Century Gothic";
+            context.fillStyle = "#111";
+            context.fillText("- CLICK -", 230, canvas.height / 2 + 200);
+            context.fillText("SCORE : " + score, 210, canvas.height / 2 + 100);
+            document.addEventListener('mousedown', init);
+            
+        }
+
+        function draw() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            context.fillStyle = "#093";
+            context.beginPath();
+            context.arc(canvas.width / 2, -550, canvas.width, 0, Math.PI / 180, true);
+            context.fill();
+            context.closePath();
+
+            context.fillStyle = "#966";
+            context.beginPath();
+            context.moveTo(canvas.width / 2 - 25, 100);
+            context.lineTo(canvas.width / 2 + 25, 100);
+            context.lineTo(canvas.width / 2 + 40, canvas.height);
+            context.lineTo(canvas.width / 2 - 40, canvas.height);
+            context.closePath();
+            context.fill();
+
+            timer();
+            scoreView();
+            charState = charTransition(charState);
+            console.log("dx = " + dx);
+            x = x + dx;
+
+            if (x < 0) {
+                x = 0;
+                charState = "right";
+            } else if (x > canvas.width - characterSize) {
+                x = canvas.width - characterSize;
+                charState = "left";
+            }
+
+            context.fillStyle = "rgb(128, 128, 255)";
+            context.fillRect(x, canvas.height - characterSize, characterSize, characterSize);
+
+            if (Math.floor(Math.random() * 10 <= 1)) {
+                appleArray[appleArray.length] = new Apple(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * 100) + 1);
+            }
+
+            for (var i = 0; i < appleArray.length; i++) {
+                appleArray[i].move();
+
+                if (checkHit(appleArray[i].objectX, appleArray[i].objectY, x, canvas.height - characterSize, appleArray[i].objectSize) || checkHit(appleArray[i].objectX, appleArray[i].objectY, x + characterSize, canvas.height - characterSize, appleArray[i].objectSize)) {
+                    gameOver();
+                }
+
+                if (checkHit(appleArray[i].objectX, appleArray[i].objectY, mouseX, mouseY, appleArray[i].objectSize)) {
+                    appleArray[i].cutAudio.play();
+                    appleArray[i].objectY = -100;
+                }
+            }
+        }
     </script>
-  </head>
-  <body onload="init();">
-    <div id = "playArea">
-      <canvas id = "canvas1" width = "700" height = "500">
-      </canvas>
+    <style>
+        #playArea {
+            padding: 0px;
+            height: 100%;
+            overflow: auto;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body onload="init();">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo center">落ちてくる木の実からまもれ</a>
+            </div>
+        </nav>
     </div>
-    <h1>落ちてくる木の実からキャラクターをまもれ</h1>
-    <h3>木の実は徐々に大きくなり，落下</h3>
-    <h3>木の実がキャラクターに当たるとGameOver</h3>
-    <h3>マウスで木の実を破壊</h3>
-    <h3>木の実のバウンド数に応じてスコアがUP</h3>
-    <h3>GameOverになっても画面をクリックでリプレイ可能</h3>
-  </body>
+
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <div id="playArea">
+                                    <canvas id="canvas1" width="700" height="500">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">操作説明</span>
+                        <div class="row">
+                            <li>赤い木の実から青いプレイヤーをまもる</li>
+                            <li>マウスで木の実を破壊</li>
+                            <li>木の実がキャラクターに当たるとGameOver</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">ヒント</span>
+                        <div class="row">
+                            <li>木の実は徐々に大きくなり，大きい木の実ほど落下する確率が上がる</li>
+                            <li>木の実のバウンド数に応じてスコアがUP</li>
+                            <li>大きい木の実の方がバウンド時のスコアが高い</li>
+                            <li>時間が経つにつれてキャラクターの動きが早くなる</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
 </html>
-      
