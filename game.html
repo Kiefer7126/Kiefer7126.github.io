@@ -30,6 +30,8 @@
 
         var mouseX = 0;
         var mouseY = 0;
+        var img;
+        var imgApple;
 
         var Apple = function (objectX, objectY) {
             this.t = 0;
@@ -72,7 +74,8 @@
 
             context.fillStyle = "#f42";
             context.beginPath();
-            context.arc(this.objectX, this.objectY, this.objectSize, 0, Math.PI / 180, true);
+            //context.arc(this.objectX, this.objectY, this.objectSize, 0, Math.PI / 180, true);
+            context.drawImage(imgApple, this.objectX - this.objectSize, this.objectY  - this.objectSize, this.objectSize*2, this.objectSize*2)
             context.fill();
         }
 
@@ -98,6 +101,11 @@
         window.onmousemove = movehandler;
 
         function init() {
+            img = new Image();  
+            img.src = "./kiefer.png";   
+            imgApple = new Image();   
+            imgApple.src = "./apple.png";   
+            
             if (isGameover) {
                 isGameover = false;
                 charState = "stop";
@@ -110,7 +118,7 @@
                 bound = 0;
                 objectSize = 0;
                 dx = 0;
-                characterSize = 30;
+                characterSize = 50;
                 canvas = document.getElementById("canvas1");
                 context = canvas.getContext("2d");
                 x = canvas.width / 2;
@@ -224,7 +232,8 @@
             }
 
             context.fillStyle = "rgb(128, 128, 255)";
-            context.fillRect(x, canvas.height - characterSize, characterSize, characterSize);
+            //context.fillRect(x, canvas.height - characterSize, characterSize, characterSize);
+            context.drawImage(img, x, canvas.height - characterSize-10, characterSize+10, characterSize+10)
 
             if (Math.floor(Math.random() * 10 <= 1)) {
                 appleArray[appleArray.length] = new Apple(Math.floor(Math.random() * canvas.width), Math.floor(Math.random() * 100) + 1);
@@ -271,7 +280,7 @@
                         <div class="card-content">
                             <div class="row">
                                 <div id="playArea">
-                                    <canvas id="canvas1" width="700" height="500">
+                                    <canvas id="canvas1" width="700" height="475">
                                     </canvas>
                                 </div>
                             </div>
