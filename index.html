@@ -1,60 +1,88 @@
 <!-- HTML5である宣言 -->
 <!DOCTYPE html>
 <html>
-  <head><meta charset = "Shift_JIS">
-    <title>Kiefer's Portfolio</title>
-    <script src = "lastupdate.js"></script>
-      <!--Import Google Icon Font-->
-      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 
-      <!--Let browser know website is optimized for mobile-->
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    
-    <style> 
-      #updateAgoTxt{
-        color: #999999;
-      }
-      #footer{
-        text-align: center;
-      }
-      #markdown-body{
-        margin-left: 22%;
-        margin-right: 22%;
-        margin-top: 3%;
-      }
+<head>
+    <meta charset="Shift_JIS">
+    <title>Kiefer's Portfolio</title>
+    <script src="lastupdate.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        #updateAgoTxt {
+            color: #999999;
+        }
+        
+        #footer {
+            text-align: center;
+        }
+        
+        #markdown-body {
+            margin-left: 22%;
+            margin-right: 22%;
+            margin-top: 3%;
+        }
     </style>
-  </head>
-  <body onLoad = "lastUpdate()">
-       <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
-    <div id ="markdown-body">
-      <h1 id="_1">Portfolio</h1>  
-      <section>
-        <h3 id="_3">Product</h3>
-          <ul>
-            <li><a href="clock.html">World Clock</a></li>
-            <li><a href="exchange.html">Exchange Calculator</a></li>
-            <li><a href="slideshow.html">Slide Show</a></li>
-            <li><a href="canvas.html">Canvas</a></li>
-            <li><a href="draw.html">Mouse Draw</a></li>
-            <li><a href="drunk_ichiren1.html">Drunk Ichiren</a></li>
-            <li><a href="timer.html">Kiefer Timer</a></li>
-            <li><a href="memo.html">Post-it</a></li>
-            <li><a href="japanmap.html">Japan Map</a></li>
-            <li><a href="spectrogram.html">Spectrogram</a></li>
-            <li><a href="pastta.html">PASTTA</a></li>
-          </ul>
-      </section>
-      <section>
-        <footer id = "footer">
-          <p>Author: <a href="https://twitter.com/kiefer7126">@kiefer7126</a></p> 
-            <div id = "lastUpdateTxt">Last updated: -- --, ---- --:--:--</div>
-            <div id = "updateAgoTxt"> ---- ago</div>
-        </footer>
-      </section>
+</head>
+
+<body onLoad="lastUpdate()">
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper light-blue darken-4">
+                <a href="#!" class="brand-logo center">Kiefer's portfolio</a>
+            </div>
+        </nav>
     </div>
-  </body>
+    <div class="container">
+        <div class="section">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Products</span>
+                            <div class="row">
+                                <p>
+                                    <ul style="list-style:none; margin-left: 20px;">
+                                
+                                    <!--            <li><a href="clock.html">World Clock</a></li>-->
+                                    <!--            <li><a href="exchange.html">Exchange Calculator</a></li>-->
+                                    <!--            <li><a href="slideshow.html">Slide Show</a></li>-->
+                                    <!--            <li><a href="canvas.html">Canvas</a></li>-->
+                                    <!--            <li><a href="draw.html">Mouse Draw</a></li>-->
+                                    <li><a href="drunk_ichiren1.html">Drunk Ichiren</a></li>
+                                    <li><a href="timer.html">Kiefer Timer</a></li>
+                                    <li><a href="memo.html">Post-it</a></li>
+                                    <!--            <li><a href="japanmap.html">Japan Map</a></li>-->
+                                    <li><a href="spectrogram.html">Spectrogram</a></li>
+                                    <li><a href="pastta.html">PASTTA</a></li>
+                                    <li><a href="game.html">Apple game</a></li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="markdown-body">
+            <section>
+                <footer id="footer">
+                    <p>Author: <a href="https://twitter.com/kiefer7126">@kiefer7126</a></p>
+                    <div id="lastUpdateTxt">Last updated: -- --, ---- --:--:--</div>
+                    <div id="updateAgoTxt"> ---- ago</div>
+                </footer>
+            </section>
+        </div>
+</body>
+
 </html>

@@ -40,7 +40,7 @@
 <body onload="init()">
     <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav-wrapper light-blue darken-4">
                 <a href="#!" class="brand-logo center">PASTTA</a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="#" onclick="playSound(); return false;"><i class="large material-icons">play_arrow</i></a></li>
@@ -93,8 +93,8 @@
                                 <form action="#">
                                     <div class="file-field input-field col s6">
                                         <div class="btn">
-                                            <span>System output</span>
-                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseLfText(this.files)">
+                                            <span>Ground truth</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseTabText(this.files)">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Upload file">
@@ -104,8 +104,8 @@
                                 <form action="#">
                                     <div class="file-field input-field col s6">
                                         <div class="btn">
-                                            <span>Ground truth</span>
-                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseTabText(this.files)">
+                                            <span>Grouping Structure</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseLfText(this.files)">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Upload file">
@@ -167,7 +167,9 @@
                                     </button>
                                     <div class="btn">
                                         <span>
-                    <a id="download" href="#" download = "beat.txt"  onclick="exportBeat()">Download</a>
+                    <a id="download" href="#" download = "beat.txt"  onclick="exportBeat()">
+                                            <i class="material-icons">file_download</i>
+                                            </a>
                          </span>
                                     </div>
                                 </div>
@@ -193,7 +195,9 @@
                                     </button>
                                     <div class="btn">
                                         <span>
-                    <a id="downloadGrouping" href="#" download = "group.txt"  onclick="exportGrouping()">Download</a>
+                    <a id="downloadGrouping" href="#" download = "group.txt"  onclick="exportGrouping()">
+                                            <i class="material-icons">file_download</i>
+                                            </a>
                          </span>
                                     </div>
                                 </div>
@@ -209,6 +213,20 @@
                             </div>
                         </div>
                     </div>
+
+<!--
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Dendrogram</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <canvas id="dendrogramCanvas" width="1000" height="400"></canvas>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+-->
 
                     <!--                     -->
                     <!-- Time-span Reduction -->
