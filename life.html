@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="description" content="Life" />
+
+    <title>Life</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        a {
+            font-size: 100%;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        
+        .canvasWrapper {
+            padding: 0px;
+            height: 100%;
+            overflow: scroll;
+        }
+    </style>
+
+</head>
+
+<body onload="">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper light-blue darken-4">
+                <a href="#!" class="brand-logo center">LIFE GAME</a>
+                <ul class="right hide-on-med-and-down">
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="section">
+            <h3 class="blue-text text-darken-4 header">BANK</h3>
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Sawada</span>
+                            <div class="row">
+
+                                <button type="button" class="waves-effect waves-light btn col s1" id="user1btn" onclick="btn1()">
+                                    OK
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user1" type="text" class="validate">
+                                    <label for="first_name">Incomings and outgoings</label>
+
+                                </div>
+                                <h5><p id="test1" class="input-field col s4">総資産：0</p></h5>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="waves-effect waves-light red lighten-3 btn col s1" id="user1btn" onclick="loan1()">
+                                    Loan
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user1loan" type="text" class="validate">
+                                    <label for="first_name">Borrow money from bank</label>
+
+                                </div>
+                                <h5><p id="test1loan" class="input-field col s4">借金：0</p></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Takeda</span>
+                            <div class="row">
+
+                                <button type="button" class="waves-effect waves-light btn col s1" id="user2btn" onclick="btn2()">
+                                    OK
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user2" type="text" class="validate">
+                                    <label for="first_name">Incomings and outgoings</label>
+
+                                </div>
+                                <h5><p id="test2" class="input-field col s4">総資産：0</p></h5>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="waves-effect waves-light red lighten-3 btn col s1" id="user1btn" onclick="loan2()">
+                                    Loan
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user1loan" type="text" class="validate">
+                                    <label for="first_name">Borrow money from bank</label>
+
+                                </div>
+                                <h5><p id="test2loan" class="input-field col s4">借金：0</p></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Satory</span>
+                            <div class="row">
+
+                                <button type="button" class="waves-effect waves-light btn col s1" id="user3btn" onclick="btn3()">
+                                    OK
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user3" type="text" class="validate">
+                                    <label for="first_name">Incomings and outgoings</label>
+
+                                </div>
+                                <h5><p id="test3" class="input-field col s4">総資産：0</p></h5>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="waves-effect waves-light red lighten-3 btn col s1" id="user1btn" onclick="loan3()">
+                                    Loan
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user3loan" type="text" class="validate">
+                                    <label for="first_name">Borrow money from bank</label>
+
+                                </div>
+                                <h5><p id="test3loan" class="input-field col s4">借金：0</p></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Terasaki</span>
+                            <div class="row">
+
+                                <button type="button" class="waves-effect waves-light btn col s1" id="user4btn" onclick="btn4()">
+                                    OK
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user4" type="text" class="validate">
+                                    <label for="first_name">Incomings and outgoings</label>
+
+                                </div>
+                                <h5><p id="test4" class="input-field col s4">総資産：0</p></h5>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="waves-effect waves-light red lighten-3 btn col s1" id="user1btn" onclick="loan4()">
+                                    Loan
+                                </button>
+                                <div class="input-field col s6">
+                                    <input placeholder="How much?" id="user4loan" type="text" class="validate">
+                                    <label for="first_name">Borrow money from bank</label>
+
+                                </div>
+                                <h5><p id="test4loan" class="input-field col s4">借金：0</p></h5>
+                            </div>
+                        </div>
+                    </div>
+
+
+<h3 class="blue-text text-darken-4 header">Roulette</h3>
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Roulette</span>
+                            <div class="row">
+                                <button type="button" class="waves-effect waves-light btn col s2" id="user2btn" onclick="roulette()">
+                                    START
+                                </button>
+                                <h3><p id="result" class="input-field col s4">0</p></h3>
+                                <canvas id="rouletteCanvas" width="5000" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <audio id="clickBeat" preload="auto">
+                        <source src="sounds/pi.wav" type="audio/wav">
+                    </audio>
+
+
+                    <script>
+                        var elem1 = document.getElementById("test1");
+                        var elem2 = document.getElementById("test2");
+                        var elem3 = document.getElementById("test3");
+                        var elem4 = document.getElementById("test4");
+                        var val1 = 0;
+                        var val2 = 0;
+                        var val3 = 0;
+                        var val4 = 0;
+
+                        var elem1loan = document.getElementById("test1loan");
+                        var val1loan = 0;
+
+
+                        var Rouresult = document.getElementById("result");
+
+                        function btn1() {
+                            var temp = Number(document.getElementById('user1').value);
+                            if (!isNaN(temp)) {
+                                val1 = val1 + temp;
+                                console.log(val1);
+                                update1();
+                            }
+                        }
+
+                        function btn2() {
+                            var temp = Number(document.getElementById('user2').value);
+                            if (!isNaN(temp)) {
+                                val2 = val2 + temp;
+                                console.log(val2);
+                                update2();
+                            }
+                        }
+
+                        function btn3() {
+                            var temp = Number(document.getElementById('user3').value);
+
+                            if (!isNaN(temp)) {
+                                val3 = val3 + temp;
+                                console.log(val3);
+                                update3();
+                            }
+                        }
+
+                        function btn4() {
+                            var temp = Number(document.getElementById('user4').value);
+
+                            if (!isNaN(temp)) {
+                                val4 = val4 + temp;
+                                console.log(val4);
+                                update4();
+                            }
+                        }
+
+
+                        function update1() {
+                            var string = "総資産："
+                            elem1.textContent = string + val1;
+
+                            var string = "借金："
+                            elem1loan.textContent = string + val1loan;
+                        }
+
+                        function update2() {
+                            var string = "総資産："
+                            elem2.textContent = string + val2;
+                        }
+
+                        function update3() {
+                            var string = "総資産："
+                            elem3.textContent = string + val3;
+                        }
+
+                        function update4() {
+                            var string = "総資産："
+                            elem4.textContent = string + val4;
+                        }
+
+                        function loan1() {
+                            var temp = Number(document.getElementById('user1loan').value);
+                            if (!isNaN(temp)) {
+                                val1 = val1 + temp;
+                                val1loan = val1loan + temp;
+                                console.log(val1);
+                                update1();
+                            }
+                        }
+
+                        function roulette() {
+
+                            var rand = Math.floor(Math.random() * 6 + 1);
+                            Rouresult.textContent = rand;
+
+                        }
+                    </script>
+
+
+</body>
+
+</html>
