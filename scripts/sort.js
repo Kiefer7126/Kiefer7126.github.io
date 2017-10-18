@@ -21,7 +21,8 @@ function inverse() {
         resultString += "\n"
     }
 
-    document.getElementById('textareaAfter').value = resultString;
+    //document.getElementById('textareaAfter').value = resultString;
+    $('#textareaAfter').val(resultString);
     $('#textareaAfter').trigger('autoresize');
 }
 
@@ -63,14 +64,15 @@ function transpose() {
     
     var resultString = '';
     for (var i = 0; i < transLineArray.length; i++) {
-        resultString += "\|"
+        resultString += "\|s"
         for(var j = 0; j < transLineArray[0].length; j++){
         resultString += transLineArray[i][j] + "\|";
         }
         resultString += "\n"
     }
     
-        document.getElementById('textareaTransAfter').value = resultString;
+     //   document.getElementById('textareaTransAfter').value = resultString;
+    $('#textareaTransAfter').val(resultString);
     $('#textareaTransAfter').trigger('autoresize');
 
 }
