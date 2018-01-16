@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="description" content="UDON" />
+
+    <title>UDON</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="scripts/audioPlayer.js"></script>
+    <script type="text/javascript" src="scripts/readTabText.js"></script>
+    <script type="text/javascript" src="scripts/dendrogram.js"></script>
+    <script type="text/javascript" src="scripts/beatStructure.js"></script>
+    <script type="text/javascript" src="scripts/groupingStructure.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        a {
+            font-size: 100%;
+            font-weight: bold;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        
+        .canvasWrapper {
+            padding: 0px;
+            height: 100%;
+            overflow: scroll;
+        }
+    </style>
+
+</head>
+
+<body onload="init()">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper light-blue darken-4">
+                <a href="#!" class="brand-logo center">UDON</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#" onclick="playSound(); return false;"><i class="large material-icons">play_arrow</i></a></li>
+                    <li><a href="#" onclick="pauseSound(); return false;"><i class="material-icons">pause</i></a></li>
+                    <li><a href="#" onclick="resetSound(); return false;"><i class="material-icons">stop</i></a></li>
+                    <li><a href="#" onclick="backSound(); return false;"><i class="material-icons">replay_10</i></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <!--                   -->
+        <!-- GroupingStructure -->
+        <!--                   -->
+        <div class="section">
+            <h3 class="blue-text text-darken-4 header">Grouping Structure</h3>
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Select File</span>
+                            <div class="row">
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>Music</span>
+                                            <input type="file" id="fileUploadAudio" accept="audio/*" onchange="handleFiles(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>Beat Structure</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="readBeatStructure(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                                <audio id="sound">
+                                    <source src="">
+                                </audio>
+                            </div>
+                            <div class="row">
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>Ground truth</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseTabText(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                                <form action="#">
+                                    <div class="file-field input-field col s6">
+                                        <div class="btn">
+                                            <span>Grouping Structure</span>
+                                            <input type="file" id="fileUploadAudio" accept="text/*" onchange="parseLfText(this.files)">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Controller</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="playButton" onclick="playSound()">
+                                        <i class="large material-icons">play_arrow</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="pauseButton" onclick="pauseSound()">
+                                        <i class="large material-icons">pause</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="resetSound()">
+                                        <i class="large material-icons">stop</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="resetButton" onclick="backSound()">
+                                        <i class="large material-icons">replay_10</i>
+                                    </button>
+
+                                </div>
+                                <div class="col s12">
+                                    <div class="input-field col s3">
+                                        <select id="segment" onChange="segmentPlay()">
+                                            <option value="" disabled selected>Choose Segment</option>
+                                        </select>
+                                    </div>
+                                    <div class="col s9">
+                                        <form action="#">
+                                            <p class="range-field">
+                                                <label>Dendrogram Level Bar</label>
+                                                <input type="range" id="dendrogramBar" min="0" max="90" />
+                                            </p>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Beat structure</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="inputBeat" onclick="inputBeat()">
+                                        <i class="large material-icons">input</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="clearBeat" onclick="clearBeat()">
+                                        <i class="large material-icons">delete</i>
+                                    </button>
+                                    <div class="btn">
+                                        <span>
+                    <a id="download" href="#" download = "beat.txt"  onclick="exportBeat()">
+                                            <i class="material-icons">file_download</i>
+                                            </a>
+                         </span>
+                                    </div>
+                                </div>
+                                <div class="canvas col s12">
+                                    <div class="canvasWrapper">
+                                        <canvas id="audioCanvas" width="5000" height="100"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Grouping structure</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="splitCanvas" onclick="splitCanvas()">
+                                        <i class="large material-icons">done</i>
+                                    </button>
+                                    <button type="button" class="waves-effect waves-light btn col s1" id="clearGrouping" onclick="clearGrouping()">
+                                        <i class="large material-icons">delete</i>
+                                    </button>
+                                    <div class="btn">
+                                        <span>
+                    <a id="downloadGrouping" href="#" download = "group.txt"  onclick="exportGrouping()">
+                                            <i class="material-icons">file_download</i>
+                                            </a>
+                         </span>
+                                    </div>
+                                </div>
+                                <div class="canvas col s12">
+                                    <div class="canvasWrapper">
+                                        <canvas id="groupingCanvas" width="5000" height="300"></canvas>
+                                    </div>
+
+                                    <canvas id="dendrogramCanvas" width="0" height="0"></canvas>
+                                    <!--                <canvas id="dendrogramCanvas" width="1000" height="200" class = "col s12"></canvas> -->
+                                    <canvas id="chorusCanvas" width="0" height="0"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+<!--
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Dendrogram</span>
+                            <div class="row">
+                                <div class="col s12">
+                                    <canvas id="dendrogramCanvas" width="1000" height="400"></canvas>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+-->
+
+                    <!--                     -->
+                    <!-- Time-span Reduction -->
+                    <!--                     -->
+                    <div class="section">
+                        <h3 class="blue-text text-darken-4 header">Time-span Reduction</h3>
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Demo</span>
+
+                                <div class="slider">
+                                    <ul class="slides">
+                                        <li>
+                                            <img src="image/1spect.png">
+                                            <div class="caption center-align">
+                                                <h3>Original</h3>
+                                                <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                                                <audio id="tsSound1" controls>
+                                                    <source src="sounds/1.wav">
+                                                </audio>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="image/2spect.png">
+                                            <div class="caption left-align">
+                                                <h3>Reduction Level 1</h3>
+                                                <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                                                <audio id="tsSound2" controls>
+                                                    <source src="sounds/2.wav">
+                                                </audio>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <img src="image/3spect.png">
+                                            <div class="caption right-align">
+                                                <h3>Reduction Level 2</h3>
+                                                <h5 class="light grey-text text-lighten-3">Piano Sonata No.11 in A major, K.331</h5>
+                                                <audio id="tsSound3" controls>
+                                                    <source src="sounds/3.wav">
+                                                </audio>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--                     -->
+            <!--        Papers       -->
+            <!--                     -->
+            <!--
+        <div class = "section">
+            <h3 class="blue-text text-darken-4">発表論文</h3>
+            <h5>国内会議論文（査読なし）</h5>
+            <li>
+            澤田 隼, 竹川 佳成, 平田 圭二: 音楽音響信号を対象とするGTTM的アプローチによるグルーピング構造の抽出について, 情報処理学会 音楽情報科学研究会, 2016-MUS-111 (2016) <span class="pink-text text-darken-2">学生奨励賞</span>            
+            </li>
+            <li>
+            澤田隼, 竹川佳成, 平田圭二: 音楽音響信号からのグルーピング構造の獲得へ向けて, ヒューマンインタフェースシンポジウム論文集, 2519D (2015).
+            </li>
+        </div>
+    </div>
+-->
+
+            <audio id="clickBeat" preload="auto">
+                <source src="sounds/pi.wav" type="audio/wav">
+            </audio>
+
+</body>
+
+</html>
