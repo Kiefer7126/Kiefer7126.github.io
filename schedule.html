@@ -21,7 +21,7 @@
                     <div class="card-content">
                         <span class="card-title">Schedule</span>
                         <div style="width: 100%; height: 100%; overflow: scroll;">
-                            <div id="stage-container" style="width: 900px; height: 250px; margin: 0; padding: 0;"></div>
+                            <div id="stage-container" style="width: 1000px; height: 250px; margin: 0; padding: 0;"></div>
                         </div>
                         <script>
                             var stage = acgraph.create('stage-container');
@@ -31,7 +31,7 @@
                             function draw(barlength) {
                                 
                             
-                            var start_x = 50
+                            var start_x = 100
                             var start_y = 60
                             var end_x = barlength + start_x
                             var end_y = start_y
@@ -39,6 +39,8 @@
                             var numberOfMonth = 12
                             var monthTxt_y = 20
                             var text_y_margin = 25
+                            
+                            var scheduleList = []
 
                                 var text = document.getElementById('textarea1').value;
                                 var todoList = [];
@@ -59,8 +61,13 @@
                                         ele = ele[0].split(/, /);
                                         console.log(ele);
                                         month_temp[month_temp.length] = ele;
+                                        if(scheduleList.indexOf(ele[1]) == -1){
+                                        scheduleList[scheduleList.length] = ele[1]
+                                        }
                                     }
                                 }
+                                console.log("scheduleList")
+                                console.log(scheduleList)
                                 month_list[month_list.length] = month_temp;
                                 month_list.shift();
                                 console.log(month_list)
@@ -88,21 +95,23 @@
 
                                 for (var i = 0; i < numberOfMonth; i++) {
                                     drawMCircle(start_x + i * monthstep, start_y);
-                                    addText(start_x - 10 + i * monthstep, monthTxt_y, i + 1, "bold", 20);
+                                    
 
                                     var month = parseInt(month_list[i][0], 10);
                                     var numberOfDay = month_list[i].length - 1
                                     console.log("month")
                                     console.log(month)
+                                    addText(start_x - 10 + i * monthstep, monthTxt_y, month, "bold", 20);
                                     for (var j = numberOfDay; j >= 1; j--) {
                                         var day = parseInt(month_list[i][j][0], 10);
                                         console.log("day")
                                         console.log(day)
                                         day_x = start_x + i * monthstep + daystep * day
 
-                                        drawPath(day_x, start_y, day_x, start_y + j * text_y_margin)
+                                        drawPath(day_x, start_y, day_x, start_y + (scheduleList.indexOf(month_list[i][j][1])+1) * text_y_margin)
                                         drawDCircle(day_x, start_y);
-                                        addText(day_x - 7, start_y + j * text_y_margin, month_list[i][j][1], "normal", 15)
+                                        addText(day_x - 7, start_y + (scheduleList.indexOf(month_list[i][j][1])+1) * text_y_margin, month_list[i][j][2], "normal", 15)
+                                        addText(10, start_y + (scheduleList.indexOf(month_list[i][j][1])+1) * text_y_margin, month_list[i][j][1], "normal", 15)
                                         addText(day_x - 7, start_y - 20, month_list[i][j][0], "normal", 12)
                                     }
 
@@ -145,8 +154,8 @@
                             }
 
                             function save() {
-                                draw(400);
                                 stage.saveAsSvg(400, 300);
+                                stage.saveAsPng(1000,250,0.9);
                             }
 
                         </script>
@@ -167,15 +176,16 @@
                             <div class="input-field col s12">
                                 <textarea id="textarea1" class="materialize-textarea">
 1:
-- 3, data1
-- 24, data2
-- 30, data3
+- 3, data1, 申し込み
+- 24, data2, 申し込み
+- 30, data3, 申し込み
 2:
-- 4, data4
-- 14, data5
+- 4, data1, 原稿
+- 14, data4, 申し込み
 3:
-- 11, data6
-- 25, data7
+- 11, data2, 原稿
+- 25, data3, 原稿
+- 30, data4, 原稿
                     </textarea>
                                 <label for="textarea1">Textarea</label>
                             </div>
