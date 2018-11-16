@@ -7,7 +7,7 @@
     <title>Sorting</title>
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript" src="scripts/imagesort.js"></script>
+    <!--    <script type="text/javascript" src="scripts/imagesort.js"></script>-->
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -37,7 +37,7 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper light-blue darken-4">
-                <a href="#!" class="brand-logo center">Sorting</a>
+                <a href="#!" class="brand-logo center">Annotator</a>
             </div>
         </nav>
     </div>
@@ -48,10 +48,150 @@
                 <div class="col s12 m12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">Inverse</span>
+                            <span class="card-title">Annotator</span>
                             <div class="row">
                                 <div class="input-field col s12">
+                                    <form action="#">
+                                        <div class="file-field input-field col s6">
+                                            <a class="waves-effect waves-light btn"><i class="material-icons right">file_upload</i>image
+                                                <input type="file" id="fileUploadImageAnnotation" accept="image/*" multiple onchange="handleFiles(this.files)">
+                                            </a>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text" placeholder="Upload file">
+                                            </div>
+                                        </div>
+                                    </form>
 
+                                    <div class="file-field input-field col s6">
+                                        <a class="waves-effect waves-light btn" id="download" href="#" download="labels.json" onclick="exportlabels()">
+                                            <i class="material-icons right">file_download</i>json</a>
+                                    </div>
+                                </div>
+                                <div class="input-field col s12">
+                                    <div class="progress col s11">
+                                        <div id="ratebar" class="determinate" style="width: 0%"></div>
+                                    </div>
+                                    <div id="rate" class="col s1">
+                                        0/0
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="input-field col s4">
+                                        Default
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input id="default_labelT" type="text" class="validate">
+                                                <label for="default_labelT">↑</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="default_labelB" type="text" class="validate">
+                                                <label for="default_labelB">↓</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="default_labelL" type="text" class="validate">
+                                                <label for="default_labelL">←</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="default_labelR" type="text" class="validate">
+                                                <label for="default_labelR">→</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="input-field col s4">
+                                        Shift
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input id="shift_labelT" type="text" class="validate">
+                                                <label for="shift_labelT">↑</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="shift_labelB" type="text" class="validate">
+                                                <label for="shift_labelB">↓</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="shift_labelL" type="text" class="validate">
+                                                <label for="shift_labelL">←</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="shift_labelR" type="text" class="validate">
+                                                <label for="shift_labelR">→</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="input-field col s4">
+                                        Ctrl
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input id="ctrl_labelT" type="text" class="validate">
+                                                <label for="ctrl_labelT">↑</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="ctrl_labelB" type="text" class="validate">
+                                                <label for="ctrl_labelB">↓</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="ctrl_labelL" type="text" class="validate">
+                                                <label for="ctrl_labelL">←</label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input id="ctrl_labelR" type="text" class="validate">
+                                                <label for="ctrl_labelR">→</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="col s4">
+                                            <center>
+                                                <p>←</p>
+                                                <p id="labelL">Label L</p>
+                                            </center>
+                                        </div>
+                                        <div class="col s4">
+                                            <center>
+                                                <p>↑</p>
+                                                <p id="labelT">Label T</p>
+                                            </center>
+                                        </div>
+                                        <div class="col s4">
+                                            <center>
+                                                <p>→</p>
+                                                <p id="labelR">Label R</p>
+                                            </center>
+                                        </div>
+
+                                        <div class="col s12 materialboxed" width="100%" id="imageViewAnnotation">
+                                        </div>
+                                        <div class="col s12">
+                                            <center>
+                                                <p>↓</p>
+                                                <p id="labelB">Label B</p>
+                                            </center>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Annotator</span>
+                            <div class="row">
+                                <div class="input-field col s12">
                                     <form action="#">
                                         <div class="file-field input-field col s6">
                                             <div class="btn">
@@ -63,27 +203,26 @@
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
-                            </div>
 
-                            <div class="row">
-
-                                <div class="slider">
-                                    <ul class="slides" id="imageView">
-                                    </ul>
+                                <div class="input-field col s12">
+                                    <div class="row">
+                                        <div class="slider">
+                                            <ul class="slides" id="imageView">
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card">
                         <div class="card-content">
-                            <span class="card-title">Inverse</span>
+                            <span class="card-title">Video</span>
                             <div class="row">
                                 <div class="input-field col s12">
 
@@ -110,43 +249,275 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <script>
+        var blobUrl = [];
+        var fileList = [];
 
-            <script>
-                document.getElementById("fileUploadImage").addEventListener("change", function () {
-                    console.log("test")
-                        // フォームで選択された全ファイルを取得
-                    var fileList = this.files;
-                    var blobUrl = [];
+        var labelT = "";
+        var labelR = "";
+        var labelL = "";
+        var labelB = "";
+        var d_labelT = "";
+        var d_labelR = "";
+        var d_labelL = "";
+        var d_labelB = "";
+        var c_labelT = "";
+        var c_labelR = "";
+        var c_labelL = "";
+        var c_labelB = "";
+        var s_labelT = "";
+        var s_labelR = "";
+        var s_labelL = "";
+        var s_labelB = "";
 
-                    // 個数分の画像を表示する
-                    for (var i = 0, l = fileList.length; l > i; i++) {
-                        // Blob URLの作成
-                        blobUrl[blobUrl.length] = window.URL.createObjectURL(fileList[i]);
-                        // HTMLに書き出し (src属性にblob URLを指定)
-                        //document.getElementById("imageView").innerHTML += '                                    <div class="col s4"><a href="' + blobUrl[i] + '" target="_blank"><img src="' + blobUrl[i] + '"></a></div>';
+        $(document).ready(function() {
+            Materialize.updateTextFields();
+        });
 
-                        document.getElementById("imageView").innerHTML += '                                        <li><img src="' + blobUrl[i] + '"><div class="caption center-align"><h3>This is our big Tagline!</h3><h5 class="light grey-text text-lighten-3">Here\'s our small slogan.</h5></div></li>'
-                    }
+        $('#default_labelT').change(function() {
+            d_labelT = $('#default_labelT').val();
+            labelT = d_labelT;
+            updateLabels();
+        });
 
-                    $(document).ready(function () {
-                        $('.slider').slider();
-                    });
+        $('#default_labelR').change(function() {
+            d_labelR = $('#default_labelR').val();
+            labelR = d_labelR;
+            updateLabels();
+        });
 
-                });
+        $('#default_labelL').change(function() {
+            d_labelL = $('#default_labelL').val();
+            labelL = d_labelL;
+            updateLabels();
+        });
 
-                document.getElementById("fileUploadVideo").addEventListener("change", function () {
-                    console.log("test")
-                        // フォームで選択された全ファイルを取得
-                    var fileVideoList = this.files;
-                    var blobVideoUrl = [];
+        $('#default_labelB').change(function() {
+            d_labelB = $('#default_labelB').val();
+            labelB = d_labelB;
+            updateLabels();
+        });
 
-                    // 個数分の画像を表示する
-                    for (var i = 0, l = fileVideoList.length; l > i; i++) {
-                        // Blob URLの作成
-                        blobVideoUrl[blobVideoUrl.length] = window.URL.createObjectURL(fileVideoList[i]);
-                        
-                        document.getElementById("videoView").innerHTML += '<video src=' + blobVideoUrl[i] + '" controls></video>'
-                    }
-                });
-            </script>
+        $('#ctrl_labelT').change(function() {
+            c_labelT = $('#ctrl_labelT').val();
+        });
+
+        $('#ctrl_labelR').change(function() {
+            c_labelR = $('#ctrl_labelR').val();
+        });
+
+        $('#ctrl_labelL').change(function() {
+            c_labelL = $('#ctrl_labelL').val();
+        });
+
+        $('#ctrl_labelB').change(function() {
+            c_labelB = $('#ctrl_labelB').val();
+        });
+
+        $('#shift_labelT').change(function() {
+            s_labelT = $('#shift_labelT').val();
+        });
+
+        $('#shift_labelR').change(function() {
+            s_labelR = $('#shift_labelR').val();
+        });
+
+        $('#shift_labelL').change(function() {
+            s_labelL = $('#shift_labelL').val();
+        });
+
+        $('#shift_labelB').change(function() {
+            s_labelB = $('#shift_labelB').val();
+        });
+
+        $(document).ready(function() {
+            $('.materialboxed').materialbox();
+        });
+
+        document.onkeydown = keydown;
+        document.onkeyup = keyup;
+        var count = 0;
+        var annotation = {};
+        var cntrlIsPressed = false;
+        var shiftIsPressed = false;
+
+        function rewriteLabels(id, label) {
+            document.getElementById(id).innerHTML = label;
+        }
+
+
+        function keydown() {
+            if (event.shiftKey) {
+                shiftIsPressed = true;
+                updateLabels();
+            }
+
+            if (event.ctrlKey) {
+                cntrlIsPressed = true;
+                updateLabels();
+            }
+
+            if (event.keyCode == 37) {
+                redraw(count++);
+                setAnnotation(count, labelL);
+            } else if (event.keyCode == 38) {
+                redraw(count++);
+                setAnnotation(count, labelT);
+            } else if (event.keyCode == 39) {
+                redraw(count++);
+                setAnnotation(count, labelR);
+            } else if (event.keyCode == 40) {
+                redraw(count++);
+                setAnnotation(count, labelB);
+            }
+
+        }
+
+        function keyup() {
+            if (event.shiftKey || event.ctrlKey) {
+                if (event.shiftKey) {
+                    shiftIsPressed = true;
+                    cntrlIsPressed = false;
+                } else {
+                    shiftIsPressed = false;
+                    cntrlIsPressed = true;
+                }
+                updateLabels();
+            } else {
+                shiftIsPressed = false;
+                cntrlIsPressed = false;
+                labelB = d_labelB;
+                labelL = d_labelL;
+                labelR = d_labelR;
+                labelT = d_labelT;
+                updateLabels();
+            }
+        }
+
+        function setAnnotation(number, label) {
+            if (fileList[number]) {
+                annotation[fileList[number].name] = label;
+            }
+        }
+
+        function redraw(number) {
+            if (blobUrl[number]) {
+                document.getElementById("imageViewAnnotation").innerHTML = '<img class = "col s12 materialboxed" width = "100%" src="' + blobUrl[number] + '">'
+                rerate();
+            }
+        }
+
+        function rerate() {
+            document.getElementById("rate").innerHTML = count + "/" + fileList.length
+            target = document.getElementById("ratebar");
+            target.style.width = count / fileList.length * 100 + "%"
+        }
+
+        function updateLabels() {
+            if (cntrlIsPressed) {
+                labelL = c_labelL;
+                labelB = c_labelB;
+                labelR = c_labelR;
+                labelT = c_labelT;
+            }
+
+            if (shiftIsPressed) {
+                labelL = s_labelL;
+                labelB = s_labelB;
+                labelR = s_labelR;
+                labelT = s_labelT;
+            }
+            document.getElementById("labelT").innerHTML = labelT;
+            document.getElementById("labelB").innerHTML = labelB;
+            document.getElementById("labelR").innerHTML = labelR;
+            document.getElementById("labelL").innerHTML = labelL;
+        }
+
+        function exportlabels() {
+
+            labels = JSON.stringify(annotation);
+
+            //var filename = "";
+
+            //if (document.getElementById("fileUploadAudio").files.length == 0) {
+            //    filename = "undefine_beat.txt"
+            //} else {
+            //    filename = splitExt(document.getElementById("fileUploadAudio").files[0].name)[0] + "_beat.txt"
+            //}
+
+            var blob = new Blob([labels], {
+                "type": "application/json"
+            });
+
+            if (window.navigator.msSaveBlob) {
+                window.navigator.msSaveBlob(blob, filename);
+                // msSaveOrOpenBlobの場合はファイルを保存せずに開ける
+                //window.navigator.msSaveOrOpenBlob(blob, "test.txt"); 
+
+                console.log("a")
+            } else {
+                //document.getElementById("download").download = filename;
+                document.getElementById("download").href = window.URL.createObjectURL(blob);
+                console.log("b")
+            }
+
+        }
+
+        document.getElementById("fileUploadImageAnnotation").addEventListener("change", function() {
+            count = 0;
+            // フォームで選択された全ファイルを取得
+            fileList = [];
+            blobUrl = [];
+            fileList = this.files;
+
+            // 個数分の画像を表示する
+            for (var i = 0, l = fileList.length; l > i; i++) {
+                blobUrl[blobUrl.length] = window.URL.createObjectURL(fileList[i]);
+            }
+
+            document.getElementById("imageViewAnnotation").innerHTML = '<img class = "col s12 materialboxed" width = "100%" src="' + blobUrl[0] + '">'
+            rerate();
+
+        });
+
+
+
+        document.getElementById("fileUploadImage").addEventListener("change", function() {
+            // フォームで選択された全ファイルを取得
+            var fileList = this.files;
+            var blobUrl = [];
+
+            // 個数分の画像を表示する
+            for (var i = 0, l = fileList.length; l > i; i++) {
+                // Blob URLの作成
+                blobUrl[blobUrl.length] = window.URL.createObjectURL(fileList[i]);
+                // HTMLに書き出し (src属性にblob URLを指定)
+                //document.getElementById("imageView").innerHTML += '                                    <div class="col s4"><a href="' + blobUrl[i] + '" target="_blank"><img src="' + blobUrl[i] + '"></a></div>';
+
+                document.getElementById("imageView").innerHTML += '                                        <li><img src="' + blobUrl[i] + '"><div class="caption center-align"><h3>This is our big Tagline!</h3><h5 class="light grey-text text-lighten-3">Here\'s our small slogan.</h5></div></li>'
+            }
+
+            $(document).ready(function() {
+                $('.slider').slider();
+            });
+
+        });
+
+        document.getElementById("fileUploadVideo").addEventListener("change", function() {
+            // フォームで選択された全ファイルを取得
+            var fileVideoList = this.files;
+            var blobVideoUrl = [];
+
+            // 個数分の画像を表示する
+            for (var i = 0, l = fileVideoList.length; l > i; i++) {
+                // Blob URLの作成
+                blobVideoUrl[blobVideoUrl.length] = window.URL.createObjectURL(fileVideoList[i]);
+
+                document.getElementById("videoView").innerHTML += '<video src=' + blobVideoUrl[i] + '" controls></video>'
+            }
+        });
+
+    </script>
 </body>
