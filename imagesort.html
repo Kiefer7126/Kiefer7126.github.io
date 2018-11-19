@@ -151,26 +151,30 @@
 
                                 <div class="row">
                                     <div class="col s12">
-                                        <div class="col s4">
-                                            <center>
-                                                <p>←</p>
-                                                <p id="labelL">Label L</p>
-                                            </center>
-                                        </div>
-                                        <div class="col s4">
+                                        <div class="col s12">
                                             <center>
                                                 <p>↑</p>
                                                 <p id="labelT">Label T</p>
                                             </center>
                                         </div>
-                                        <div class="col s4">
+                                        <div class="row">
+                                            <div class="col s3">
+                                                <center>
+                                                    <p>←</p>
+                                                    <p id="labelL">Label L</p>
+                                                </center>
+                                            </div>
                                             <center>
-                                                <p>→</p>
-                                                <p id="labelR">Label R</p>
+                                                <div class="col s6 materialboxed center" width="100%" id="imageViewAnnotation">
+                                                    Image
+                                                </div>
                                             </center>
-                                        </div>
-
-                                        <div class="col s12 materialboxed" width="100%" id="imageViewAnnotation">
+                                            <div class="col s3">
+                                                <center>
+                                                    <p>→</p>
+                                                    <p id="labelR">Label R</p>
+                                                </center>
+                                            </div>
                                         </div>
                                         <div class="col s12">
                                             <center>
@@ -404,7 +408,7 @@
 
         function redraw(number) {
             if (blobUrl[number]) {
-                document.getElementById("imageViewAnnotation").innerHTML = '<img class = "col s12 materialboxed" width = "100%" src="' + blobUrl[number] + '">'
+                document.getElementById("imageViewAnnotation").innerHTML = '<img width = "100%" src="' + blobUrl[number] + '">'
                 rerate();
             }
         }
@@ -477,7 +481,7 @@
                 blobUrl[blobUrl.length] = window.URL.createObjectURL(fileList[i]);
             }
 
-            document.getElementById("imageViewAnnotation").innerHTML = '<img class = "col s12 materialboxed" width = "100%" src="' + blobUrl[0] + '">'
+            document.getElementById("imageViewAnnotation").innerHTML = '<img width = "100%" src="' + blobUrl[0] + '">'
             rerate();
 
         });
