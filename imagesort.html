@@ -189,70 +189,37 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col s12 m12">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Annotator</span>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <form action="#">
-                                        <div class="file-field input-field col s6">
-                                            <div class="btn">
-                                                <span>Image</span>
-                                                <input type="file" id="fileUploadImage" multiple="" accept="image/*" onchange="handleFiles(this.files)">
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" placeholder="Upload file">
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <div class="input-field col s12">
-                                    <div class="row">
-                                        <div class="slider">
-                                            <ul class="slides" id="imageView">
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <h4>Usage</h4>
+            <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header">
+                        画像の選択
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s12 m12">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Video</span>
-                            <div class="row">
-                                <div class="input-field col s12">
-
-                                    <form action="#">
-                                        <div class="file-field input-field col s6">
-                                            <div class="btn">
-                                                <span>Image</span>
-                                                <input type="file" id="fileUploadVideo" multiple="" accept="video/mp4" onchange="handleFiles(this.files)">
-                                            </div>
-                                            <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" placeholder="Upload file">
-                                            </div>
-                                        </div>
-                                    </form>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col s12" id="videoView">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="collapsible-body">
+                        <p>IMAGEボタンを押すと，ラベルを付与したいファイルを選択できます（複数選択可能）</p>
                     </div>
-                </div>
-            </div>
+                </li>
+                <li>
+                    <div class="collapsible-header">
+                        ラベル付け
+                    </div>
+                    <div class="collapsible-body">
+                         <p>
+                            ラベルは十字キーで付与できます．                       
+                            十字キーに対応するラベルをあらかじめ入力する必要があります．
+                            「Default（何もおさない）」，「Shiftキーを押しながら」, 「Ctrlを押しながら」のモードでそれぞれ4つ，計16種類のラベルを付与することができます．
+                        </p>
+                    </div>
+                </li>
+                 <li>
+                    <div class="collapsible-header">
+                        ラベルの保存
+                    </div>
+                    <div class="collapsible-body">
+                        <p>JSONボタンを押すと画像の名前とラベルがセットになったJSONファイルがローカルに保存されます．</p>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
     <script>
