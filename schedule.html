@@ -14,6 +14,13 @@
 </head>
 
 <body>
+        <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper light-blue darken-4">
+                <a href="#!" class="brand-logo center">Scheduler</a>
+            </div>
+        </nav>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col s12 m12">
@@ -27,20 +34,20 @@
                             var stage = acgraph.create('stage-container');
                             var Mrad = 4
                             var Drad = 2
-                            
-                            function draw(barlength) {
-                                
-                            
-                            var start_x = 100
-                            var start_y = 60
-                            var end_x = barlength + start_x
-                            var end_y = start_y
 
-                            var numberOfMonth = 12
-                            var monthTxt_y = 20
-                            var text_y_margin = 25
-                            
-                            var scheduleList = []
+                            function draw(barlength) {
+
+
+                                var start_x = 100
+                                var start_y = 60
+                                var end_x = barlength + start_x
+                                var end_y = start_y
+
+                                var numberOfMonth = 12
+                                var monthTxt_y = 20
+                                var text_y_margin = 25
+
+                                var scheduleList = []
 
                                 var text = document.getElementById('textarea1').value;
                                 var todoList = [];
@@ -61,8 +68,8 @@
                                         ele = ele[0].split(/, /);
                                         console.log(ele);
                                         month_temp[month_temp.length] = ele;
-                                        if(scheduleList.indexOf(ele[1]) == -1){
-                                        scheduleList[scheduleList.length] = ele[1]
+                                        if (scheduleList.indexOf(ele[1]) == -1) {
+                                            scheduleList[scheduleList.length] = ele[1]
                                         }
                                     }
                                 }
@@ -95,7 +102,7 @@
 
                                 for (var i = 0; i < numberOfMonth; i++) {
                                     drawMCircle(start_x + i * monthstep, start_y);
-                                    
+
 
                                     var month = parseInt(month_list[i][0], 10);
                                     var numberOfDay = month_list[i].length - 1
@@ -108,10 +115,10 @@
                                         console.log(day)
                                         day_x = start_x + i * monthstep + daystep * day
 
-                                        drawPath(day_x, start_y, day_x, start_y + (scheduleList.indexOf(month_list[i][j][1])+1) * text_y_margin)
+                                        drawPath(day_x, start_y, day_x, start_y + (scheduleList.indexOf(month_list[i][j][1]) + 1) * text_y_margin)
                                         drawDCircle(day_x, start_y);
-                                        addText(day_x - 7, start_y + (scheduleList.indexOf(month_list[i][j][1])+1) * text_y_margin, month_list[i][j][2], "normal", 15)
-                                        addText(10, start_y + (scheduleList.indexOf(month_list[i][j][1])+1) * text_y_margin, month_list[i][j][1], "normal", 15)
+                                        addText(day_x - 7, start_y + (scheduleList.indexOf(month_list[i][j][1]) + 1) * text_y_margin, month_list[i][j][2], "normal", 15)
+                                        addText(10, start_y + (scheduleList.indexOf(month_list[i][j][1]) + 1) * text_y_margin, month_list[i][j][1], "normal", 15)
                                         addText(day_x - 7, start_y - 20, month_list[i][j][0], "normal", 12)
                                     }
 
@@ -155,9 +162,8 @@
 
                             function save() {
                                 stage.saveAsSvg(400, 300);
-                                stage.saveAsPng(1000,250,0.9);
+                                stage.saveAsPng(1000, 250, 0.9);
                             }
-
                         </script>
                     </div>
                 </div>
@@ -168,8 +174,8 @@
                         <span class="card-title">Editor</span>
                         <div class="row">
                             <div class="col s12">
-                                <a class="waves-effect waves-light btn" onclick="draw(800)"><i class="material-icons">brush</i></a>
-                                <a class="waves-effect waves-light btn" onclick="save()"><i class="material-icons">file_download</i></a>
+                                <a class="waves-effect waves-light btn" onclick="draw(800)"><i class="material-icons right">brush</i>DRAW</a>
+                                <a class="waves-effect waves-light btn" onclick="save()"><i class="material-icons right">file_download</i>download</a>
                             </div>
                         </div>
                         <div class="row">
@@ -190,11 +196,49 @@
                                 <label for="textarea1">Textarea</label>
                             </div>
                         </div>
+                    </div>
+                </div>
             </form>
+            <div class="col s12">
+                <h4>Usage</h4>
+            <div class="raw">
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header">
+                            スケジュールの入力
+                        </div>
+                        <div class="collapsible-body">
+                            <p>textareaにスケジュールを入力します．サンプルの記法に従って入力してください．タイトルが同じものは同じ行に表示されます．</p>
+                            <p>
+                                月:<br>
+                                - 日, タイトル, 補足<br>
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            スケジュールの描画
+                        </div>
+                        <div class="collapsible-body">
+                            <p>
+                                DRAWボタンを押すとtextareaに入力されたスケジュールが描画されます．
+                            </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header">
+                            スケジュールの保存
+                        </div>
+                        <div class="collapsible-body">
+                            <p>DOWNLOADボタンを押すとスケジュールの画像のpngとsvgファイルがローカルに保存されます．</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            </div>
         </div>
     </div>
-    </div>
-    </div>
+
 </body>
 
 </html>
