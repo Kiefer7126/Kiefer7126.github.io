@@ -166,7 +166,7 @@
                                             </div>
                                             <center>
                                                 <div class="col s6 materialboxed center" width="100%" id="imageViewAnnotation">
-                                                    Image
+                                                    <img width="100%" src="images/noimg.png">
                                                 </div>
                                             </center>
                                             <div class="col s3">
@@ -225,7 +225,7 @@
                     </div>
                     <div class="collapsible-body">
                         <p>
-                            <a class = "blue-text text-darken-2" href="https://github.com/ShunSawada/movefile">movefile.py</a>
+                            <a class="blue-text text-darken-2" href="https://github.com/ShunSawada/movefile">movefile.py</a>
 
                         </p>
                     </div>
@@ -342,21 +342,25 @@
             }
 
             if (event.keyCode == 37) {
-                
+
                 setAnnotation(count, labelL);
-                redraw(count++);
+                count++;
+                redraw(count);
             } else if (event.keyCode == 38) {
-                
+
                 setAnnotation(count, labelT);
-                redraw(count++);
+                count++;
+                redraw(count);
             } else if (event.keyCode == 39) {
-                
+
                 setAnnotation(count, labelR);
-                redraw(count++);
+                count++;
+                redraw(count);
             } else if (event.keyCode == 40) {
-                
+
                 setAnnotation(count, labelB);
-                redraw(count++);
+                count++;
+                redraw(count);
             }
 
         }
@@ -391,14 +395,19 @@
         function redraw(number) {
             if (blobUrl[number]) {
                 document.getElementById("imageViewAnnotation").innerHTML = '<img width = "100%" src="' + blobUrl[number] + '">'
-                rerate();
+
+            } else {
+                document.getElementById("imageViewAnnotation").innerHTML = '<img width = "100%" src="images/noimg.png">'
             }
+            rerate();
         }
 
         function rerate() {
-            document.getElementById("rate").innerHTML = count + "/" + fileList.length
-            target = document.getElementById("ratebar");
-            target.style.width = count / fileList.length * 100 + "%"
+            if (count <= fileList.length) {
+                document.getElementById("rate").innerHTML = count + "/" + fileList.length
+                target = document.getElementById("ratebar");
+                target.style.width = count / fileList.length * 100 + "%"
+            }
         }
 
         function updateLabels() {
