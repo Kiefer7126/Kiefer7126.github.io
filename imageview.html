@@ -189,7 +189,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card">
@@ -242,19 +242,25 @@
                                             </div>
                                         </div>
                                     </form>
-
+                                    <div class="file-field input-field col s6">
+                                        <a class="waves-effect waves-light btn" onclick="sortcards()">
+                                            <i class="material-icons right">sort</i>quality</a>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col s12" id="videoView">
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div id="videoView">
+            </div>
+        </div>
+
+    </div>
     </div>
     <script>
         var blobUrl = [];
@@ -510,20 +516,82 @@
 
         });
 
+        var videoList;
+        var videolistlength = 0;
+
         document.getElementById("fileUploadVideo").addEventListener("change", function() {
             // フォームで選択された全ファイルを取得
+            videoList = [];
             var fileVideoList = this.files;
-            var blobVideoUrl = [];
-            
+
+
+            document.getElementById("videoView").innerHTML = "";
+
+            videolistlength = fileVideoList.length;
+
 
             // 個数分の画像を表示する
+            drawcards(fileVideoList);
+
+            var videolast = document.getElementById('video' + (fileVideoList.length - 1).toString());
+            videolast.addEventListener('loadedmetadata', function() {
+                for (var i = 0, l = fileVideoList.length; l > i; i++) {
+
+                    video = document.getElementById("video" + i.toString())
+                    document.getElementById("videocontent" + i.toString()).innerHTML += '<p>Quality:' + Math.round(fileVideoList[i].size / (video.duration * 1024)) + '</p>';
+
+                    var videoObject = {};
+                    videoObject["file"] = fileVideoList[i];
+                    videoObject["key"] = "video" + i.toString();
+                    videoObject["quality"] = Math.round(fileVideoList[i].size / (video.duration * 1024));
+                    videoList[videoList.length] = videoObject;
+
+                }
+
+                videoList.sort(function(a, b) {
+                    return (a.quality > b.quality) ? -1 : 1;
+                });
+
+
+            });
+
+        });
+
+        function drawcards(fileVideoList) {
+            var blobVideoUrl = [];
             for (var i = 0, l = fileVideoList.length; l > i; i++) {
                 // Blob URLの作成
                 blobVideoUrl[blobVideoUrl.length] = window.URL.createObjectURL(fileVideoList[i]);
 
-                document.getElementById("videoView").innerHTML += '<div class = "col s12"><h5>' +  fileVideoList[i].name + '</h5><video class = "col s6 materialboxed" width = "100%" src="' + blobVideoUrl[i] + '" controls></video></div>' 
+                document.getElementById("videoView").innerHTML += '<div class="col s12 m4"><div class="card large"><div class="card-image"><video id = "video' + i.toString() + '" width = "100%" src="' + blobVideoUrl[i] + '" controls></div><div class="card-content"><span class="card-title"></span><p id = "videocontent' + i.toString() + '">' + fileVideoList[i].name + '</p></div></div></div>'
+
+
+                //document.getElementById("videoView").innerHTML += '<div class = "col s12"><h5>' +  fileVideoList[i].name + '</h5><video class = "col s6 materialboxed" width = "100%" src="' + blobVideoUrl[i] + '" controls></video></div>' 
             }
-        });
+            changethumnail();
+
+        }
+
+        function changethumnail() {
+            for (var i = 0, l = videolistlength; l > i; i++) {
+                video = document.getElementById("video" + i.toString())
+                video.currentTime = 600;
+
+            }
+        }
+
+        function sortcards() {
+            var i = 0;
+            document.getElementById("videoView").innerHTML = "";
+            for (let obj of videoList) {
+                document.getElementById("videoView").innerHTML += '<div class="col s12 m4"><div class="card large"><div class="card-image"><video id = "video' + i.toString() + '" width = "100%" src="' + window.URL.createObjectURL(obj.file) + '" controls></div><div class="card-content"><span class="card-title"></span><p id = "videocontent' + i.toString() + '">' + obj.file.name + '</p></div></div></div>'
+                document.getElementById("videocontent" + i.toString()).innerHTML += '<p>Quality:' + obj.quality + '</p>';
+                i++;
+            }
+
+            changethumnail();
+
+        }
 
     </script>
 </body>
